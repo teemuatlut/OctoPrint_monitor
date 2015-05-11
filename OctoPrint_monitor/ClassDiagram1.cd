@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="OctoPrint_monitor.App" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OctoPrint_monitor.cPrinterProfiles" Collapsed="true">
+    <Position X="4" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>JSONclasses.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OctoPrint_monitor.cCurrent" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAABAAAgEAAAAAAAAAAA=</HashCode>
+      <FileName>JSONclasses.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OctoPrint_monitor.cOptions" Collapsed="true">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAEAAAAAAAAAAAABAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>JSONclasses.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OctoPrint_monitor.conn" Collapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>JSONclasses.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OctoPrint_monitor.printer" Collapsed="true">
+    <Position X="10" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAQAAAAAAAg=</HashCode>
+      <FileName>JSONclasses.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OctoPrint_monitor.cState" Collapsed="true">
+    <Position X="10" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAQ=</HashCode>
+      <FileName>JSONclasses.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OctoPrint_monitor.cFlags" Collapsed="true">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAEAAAAEAAAAAAAAAAAAIAAAAAAACICA=</HashCode>
+      <FileName>JSONclasses.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OctoPrint_monitor.cTemperature" Collapsed="true">
+    <Position X="11.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAggAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>JSONclasses.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OctoPrint_monitor.cBed" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAIAAAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>JSONclasses.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OctoPrint_monitor.cTool0" Collapsed="true">
+    <Position X="5.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAIAAAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>JSONclasses.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OctoPrint_monitor.cSd" Collapsed="true">
+    <Position X="8.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>JSONclasses.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OctoPrint_monitor.cSettings" Collapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>JSONclasses.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OctoPrint_monitor.MainWindow" Collapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAICAAAAAABBAwAAAAAAIAAAACCAAAAAAACAEAAQAAA=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OctoPrint_monitor.Properties.Resources" Collapsed="true">
+    <Position X="4" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OctoPrint_monitor.Properties.Settings" Collapsed="true">
+    <Position X="5.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
