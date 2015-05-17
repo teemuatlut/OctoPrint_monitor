@@ -16,8 +16,6 @@ namespace OctoPrint_monitor
     public partial class App : Application
     {
         public static cSettings settings = new cSettings();
-
-
     }
 
     [Serializable]

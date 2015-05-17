@@ -19,6 +19,7 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Threading;
 using System.Windows.Shell;
+using System.ComponentModel;
 
 namespace OctoPrint_monitor
 {
@@ -140,6 +141,7 @@ namespace OctoPrint_monitor
         printer printer_data = new printer();
         jobMain job_data = new jobMain();
         public static DispatcherTimer dataTimer = new DispatcherTimer();
+        public BackgroundWorker worker = new BackgroundWorker();
 
         public MainWindow()
         {
@@ -150,6 +152,7 @@ namespace OctoPrint_monitor
             //App.settings.visibleProgressbar = TaskbarItemProgressState.Normal;
             TextBlock1.FontSize = 24;
             initializeTicker();
+            create_bgWorker();
 
             if (App.settings.OctoPrintIP == null || App.settings.API_key == null)
             {
@@ -158,8 +161,9 @@ namespace OctoPrint_monitor
                     readSettings(App.settings.settingsFile);
                     if ((App.settings.OctoPrintIP != null) && (App.settings.API_key != null))
                     {
+                        //updateScreen();
+                        worker.RunWorkerAsync();
                         dataTimer.Start();
-                        updateScreen();
                     }
                         
                 }
@@ -202,7 +206,8 @@ namespace OctoPrint_monitor
             //TextBlock1.Text =   "Printer state: "+data.state.text.ToString()+"\n"
             //                    +"Tool temp: "+data.temperature.tool0.actual.ToString()+"\n"
             //                    +"Bed temp: "+data.temperature.bed.actual.ToString();
-            updateScreen();
+            //updateScreen();
+            worker.RunWorkerAsync();
         }
 
         private void settingsBtn_Click(object sender, RoutedEventArgs e)
@@ -217,36 +222,75 @@ namespace OctoPrint_monitor
             dataTimer.Stop();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void tryBtn_Click(object sender, RoutedEventArgs e)
         {
-            updateScreen();
+            //updateScreen();
+            worker.RunWorkerAsync();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            //TaskbarItemInfo.ProgressState = System.Windows.Shell.TaskbarItemProgressState.Normal;
-            //Application.Current.Resources["TaskProgressVis"] = System.Windows.Shell.TaskbarItemProgressState.Normal;
-            //this.DataContext = App.settings;
-            //App.settings.visibleProgressbar = TaskbarItemProgressState.Normal;
-            //System.Windows.Forms.MessageBox.Show(Application.Current.Resources["TaskProgressVis"].ToString());
-        }
+        //private void Button_Click_1(object sender, RoutedEventArgs e)
+        //{
+        //    //TaskbarItemInfo.ProgressState = System.Windows.Shell.TaskbarItemProgressState.Normal;
+        //    //Application.Current.Resources["TaskProgressVis"] = System.Windows.Shell.TaskbarItemProgressState.Normal;
+        //    //this.DataContext = App.settings;
+        //    //App.settings.visibleProgressbar = TaskbarItemProgressState.Normal;
+        //    //System.Windows.Forms.MessageBox.Show(Application.Current.Resources["TaskProgressVis"].ToString());
+        //}
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
-            //TaskbarItemInfo.ProgressState = System.Windows.Shell.TaskbarItemProgressState.None;
-            //Application.Current.Resources["TaskProgressVis"] = System.Windows.Shell.TaskbarItemProgressState.None;
-            //this.DataContext = App.settings;
-            //App.settings.visibleProgressbar = TaskbarItemProgressState.Error;
-            //System.Windows.Forms.MessageBox.Show(Application.Current.Resources["TaskProgressVis"].ToString());
-        }
+        //private void Button_Click_2(object sender, RoutedEventArgs e)
+        //{
+        //    //TaskbarItemInfo.ProgressState = System.Windows.Shell.TaskbarItemProgressState.None;
+        //    //Application.Current.Resources["TaskProgressVis"] = System.Windows.Shell.TaskbarItemProgressState.None;
+        //    //this.DataContext = App.settings;
+        //    //App.settings.visibleProgressbar = TaskbarItemProgressState.Error;
+        //    //System.Windows.Forms.MessageBox.Show(Application.Current.Resources["TaskProgressVis"].ToString());
+        //}
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             this.DataContext = App.settings;
         }
 
+        void create_bgWorker()
+        {
+            //worker.WorkerReportsProgress = true;
+            worker.DoWork += worker_DoWork;
+            worker.RunWorkerCompleted += worker_RunWorkerCompleted;
+        }
 
+        void worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            printer_data = getPrinter();
+            job_data = (printer_data.state.flags.printing || printer_data.state.flags.paused) ? (getJob()) : null;
+        }
 
+        void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            try
+            {
+                TextBlock1.Text = "";
+                if (1 == 1) TextBlock1.Text += "Printer state: " + printer_data.state.stateString + "\n";
+                if (1 == 1) TextBlock1.Text += "Tool temp: " + printer_data.temperature.temps.tool0.actual.ToString();
+                if (1 == 1) TextBlock1.Text += "/" + printer_data.temperature.temps.tool0.target.ToString() + "\n";
+                if (1 == 1) TextBlock1.Text += "Bed temp: " + printer_data.temperature.temps.bed.actual.ToString() + "\n";
+                if (job_data != null)
+                {
+                    TextBlock1.Text += "Job progress: " + job_data.progress.completion.ToString();
+                    //TaskbarItemInfo.ProgressValue = job_data.progress.completion/100;
+                }
+                TextBlock1.Text += "Bar: " + App.settings.visibleProgressbar.ToString();
+                Application.Current.Resources["Try_visibility"] = Visibility.Hidden;
+            }
+            catch (Exception ex)
+            {
+                dataTimer.Stop();
+                Application.Current.Resources["Try_visibility"] = Visibility.Visible;
+                this.TextBlock1.Text = "Could not connect to printer.\n"
+                    + "Ip setting: " + App.settings.OctoPrintIP + "\n"
+                    + "API-key: " + App.settings.API_key;
+                System.Windows.Forms.MessageBox.Show("Error:\n" + ex);
+            }
+        }
 
         //private void Button_Click(object sender, RoutedEventArgs e)
         //{

@@ -17,9 +17,9 @@
         <tb:TaskbarIcon x:Name="myTaskbarIcon" IconSource="Icons\Inactive.ico" ToolTipText="tooltip_string"/>
         <TextBlock x:Name="TextBlock1" HorizontalAlignment="Left" Margin="10,54,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="256" Width="497"/>
         <Button x:Name="settingsBtn" Content="Open settings" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="107" Height="39" Click="settingsBtn_Click"/>
-        <Button Content="Try again" HorizontalAlignment="Left" Margin="122,10,0,0" VerticalAlignment="Top" Width="114" Height="39" Visibility="{DynamicResource Try_visibility}" Click="Button_Click"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="236,31,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="316,31,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_2"/>
+        <Button Content="Try again" HorizontalAlignment="Left" Margin="122,10,0,0" VerticalAlignment="Top" Width="114" Height="39" Visibility="{DynamicResource Try_visibility}" Click="tryBtn_Click"/>
+        <!--<Button Content="Button" HorizontalAlignment="Left" Margin="236,31,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>-->
+        <!--<Button Content="Button" HorizontalAlignment="Left" Margin="316,31,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_2"/>-->
 
     </Grid>
 </Window>

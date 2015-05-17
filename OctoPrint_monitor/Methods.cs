@@ -133,35 +133,37 @@ namespace OctoPrint_monitor
             attributes = (attributes & ~FileAttributes.Hidden);
             File.SetAttributes(fileName, attributes);
         }
-        public void updateScreen()
-        {
-            try
-            {
-                printer_data = getPrinter();
-                job_data = (printer_data.state.flags.printing || printer_data.state.flags.paused) ? (getJob()) : null;
-                TextBlock1.Text = "";
-                if (1 == 1) TextBlock1.Text += "Printer state: " + printer_data.state.stateString + "\n";
-                if (1 == 1) TextBlock1.Text += "Tool temp: " + printer_data.temperature.temps.tool0.actual.ToString();
-                if (1 == 1) TextBlock1.Text += "/" + printer_data.temperature.temps.tool0.target.ToString()+"\n";
-                if (1 == 1) TextBlock1.Text += "Bed temp: " + printer_data.temperature.temps.bed.actual.ToString() + "\n";
-                if (job_data != null) {
-                    TextBlock1.Text += "Job progress: " + job_data.progress.completion.ToString();
-                    //TaskbarItemInfo.ProgressValue = job_data.progress.completion/100;
-                }
-                TextBlock1.Text += "Bar: " + App.settings.visibleProgressbar.ToString();
-                //TaskbarItemInfo.ProgressValue = Convert.ToDouble(printer_data.temperature.temps.tool0.actual/100);
-                //TextBlock1.Text = "Current IP setting:\n"+settings.OctoPrintIP;
-                Application.Current.Resources["Try_visibility"] = Visibility.Hidden;
-            }
-            catch (Exception ex)
-            {
-                dataTimer.Stop();
-                Application.Current.Resources["Try_visibility"] = Visibility.Visible;
-                this.TextBlock1.Text = "Could not connect to printer.\n"
-                    +"Ip setting: "+ App.settings.OctoPrintIP +"\n"
-                    +"API-key: " + App.settings.API_key;
-                System.Windows.Forms.MessageBox.Show("Error:\n"+ex);
-            }
-        }
+        //public void updateScreen()
+        //{
+        //    try
+        //    {
+        //        //printer_data = getPrinter();
+        //        //job_data = (printer_data.state.flags.printing || printer_data.state.flags.paused) ? (getJob()) : null;
+        //        //worker.RunWorkerAsync();
+        //        TextBlock1.Text = "";
+        //        if (1 == 1) TextBlock1.Text += "Printer state: " + printer_data.state.stateString + "\n";
+        //        if (1 == 1) TextBlock1.Text += "Tool temp: " + printer_data.temperature.temps.tool0.actual.ToString();
+        //        if (1 == 1) TextBlock1.Text += "/" + printer_data.temperature.temps.tool0.target.ToString() + "\n";
+        //        if (1 == 1) TextBlock1.Text += "Bed temp: " + printer_data.temperature.temps.bed.actual.ToString() + "\n";
+        //        if (job_data != null)
+        //        {
+        //            TextBlock1.Text += "Job progress: " + job_data.progress.completion.ToString();
+        //            //TaskbarItemInfo.ProgressValue = job_data.progress.completion/100;
+        //        }
+        //        TextBlock1.Text += "Bar: " + App.settings.visibleProgressbar.ToString();
+        //        //TaskbarItemInfo.ProgressValue = Convert.ToDouble(printer_data.temperature.temps.tool0.actual/100);
+        //        //TextBlock1.Text = "Current IP setting:\n"+settings.OctoPrintIP;
+        //        Application.Current.Resources["Try_visibility"] = Visibility.Hidden;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        dataTimer.Stop();
+        //        Application.Current.Resources["Try_visibility"] = Visibility.Visible;
+        //        this.TextBlock1.Text = "Could not connect to printer.\n"
+        //            +"Ip setting: "+ App.settings.OctoPrintIP +"\n"
+        //            +"API-key: " + App.settings.API_key;
+        //        System.Windows.Forms.MessageBox.Show("Error:\n"+ex);
+        //    }
+        //}
     }
 }
