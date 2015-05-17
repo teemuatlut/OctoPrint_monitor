@@ -10,9 +10,6 @@ using System.Windows.Shell;
 
 namespace OctoPrint_monitor
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
         public static cSettings settings = new cSettings();
@@ -26,7 +23,6 @@ namespace OctoPrint_monitor
         private string _settingsFile = "myFile.xml";
         private int _updateInterval = 5;
         private TaskbarItemProgressState _visibleProgressbar = TaskbarItemProgressState.Normal;
-        //public string error_noConnection = "Couldn't connect to OctoPrint.\nMake sure your IP setting was corrent\nand you have connected to your printer in OctoPrint.";
         public event PropertyChangedEventHandler PropertyChanged;
 
         public string OctoPrintIP

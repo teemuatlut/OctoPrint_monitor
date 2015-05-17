@@ -16,15 +16,11 @@ namespace OctoPrint_monitor
             try
             {
                 json_string = getJSONstring(App.settings.OctoPrintIP + "/api/version");
-                //System.Windows.Forms.MessageBox.Show("Connection works ok!");
-                //settingsWindow.ConnOKico.Visibility = "Visible";
             }
             catch (Exception ex) 
             {
                 System.Windows.Forms.MessageBox.Show("Couldn't connect to OctoPrint.\nMake sure your IP setting was corrent\nand you have connected to your printer in OctoPrint.");
-                //string json_string = null;
             }
-            //return convertVersionJSONtoObj(json_string) as version;
             MemoryStream ms = new MemoryStream(System.Text.ASCIIEncoding.ASCII.GetBytes(json_string));
             DataContractJsonSerializer js = new DataContractJsonSerializer(typeof(version));
             return (version)js.ReadObject(ms) as version;
@@ -32,7 +28,6 @@ namespace OctoPrint_monitor
         public conn getConnection()
         {
             string json_string = getJSONstring(App.settings.OctoPrintIP + "/api/connection");
-            //return convertConnectionJSONtoObj(json_string) as conn;
 
             MemoryStream ms = new MemoryStream(System.Text.ASCIIEncoding.ASCII.GetBytes(json_string));
             DataContractJsonSerializer js = new DataContractJsonSerializer(typeof(conn));
@@ -41,7 +36,6 @@ namespace OctoPrint_monitor
         public printer getPrinter()
         {
             string json_string = getJSONstring(App.settings.OctoPrintIP + "/api/printer");
-            //return convertPrinterJSONtoObj(json_string) as printer;
 
             MemoryStream ms = new MemoryStream(System.Text.ASCIIEncoding.ASCII.GetBytes(json_string));
             DataContractJsonSerializer js = new DataContractJsonSerializer(typeof(printer));
@@ -50,7 +44,6 @@ namespace OctoPrint_monitor
         public jobMain getJob()
         {
             string json_string = getJSONstring(App.settings.OctoPrintIP + "/api/job");
-            //return convertPrinterJSONtoObj(json_string) as printer;
 
             MemoryStream ms = new MemoryStream(System.Text.ASCIIEncoding.ASCII.GetBytes(json_string));
             DataContractJsonSerializer js = new DataContractJsonSerializer(typeof(jobMain));
@@ -63,49 +56,13 @@ namespace OctoPrint_monitor
             request.Headers.Add("X-Api-key: " + App.settings.API_key);
             request.Proxy = null;
             request.Method = "GET";
-            //try
-            //{
-                WebResponse response = request.GetResponse();
-                Stream dataStream = response.GetResponseStream();
-                StreamReader reader = new StreamReader(dataStream);
-                return reader.ReadToEnd() as string;
-            //}
-            //catch (Exception ex)
-            //{
-            //    System.Windows.Forms.MessageBox.Show("Couldn't retrieve data from OctoPrint.\n"
-            //        +"Check your IP setting.\n If the problem persists, delete your "
-            //        +MainWindow.settings.settingsFile
-            //        +" file\n"
-            //        +"Ip given: "
-            //        +settings.OctoPrintIP
-            //        +"\nAPI-key: "
-            //        +settings.API_key
-            //        +"\nError: "
-            //        + ex);
-            //    dataTimer.Stop();
-            //    throw;
-            //}
+
+            WebResponse response = request.GetResponse();
+            Stream dataStream = response.GetResponseStream();
+            StreamReader reader = new StreamReader(dataStream);
+            return reader.ReadToEnd() as string;
         }
-/*
-        public conn convertConnectionJSONtoObj(string responseFromServer)
-        {
-            MemoryStream ms = new MemoryStream(System.Text.ASCIIEncoding.ASCII.GetBytes(responseFromServer));
-            DataContractJsonSerializer js = new DataContractJsonSerializer(typeof(conn));
-            return (conn)js.ReadObject(ms) as conn;
-        }
-        public printer convertPrinterJSONtoObj(string responseFromServer)
-        {
-            MemoryStream ms = new MemoryStream(System.Text.ASCIIEncoding.ASCII.GetBytes(responseFromServer));
-            DataContractJsonSerializer js = new DataContractJsonSerializer(typeof(printer));
-            return (printer)js.ReadObject(ms) as printer;
-        }
-        public version convertVersionJSONtoObj(string responseFromServer)
-        {
-            MemoryStream ms = new MemoryStream(System.Text.ASCIIEncoding.ASCII.GetBytes(responseFromServer));
-            DataContractJsonSerializer js = new DataContractJsonSerializer(typeof(version));
-            return (version)js.ReadObject(ms) as version;
-        }
-*/
+
         public static void saveSettings(string fileName)
         {
             FileStream fs = new FileStream(fileName, FileMode.Create);
@@ -133,37 +90,5 @@ namespace OctoPrint_monitor
             attributes = (attributes & ~FileAttributes.Hidden);
             File.SetAttributes(fileName, attributes);
         }
-        //public void updateScreen()
-        //{
-        //    try
-        //    {
-        //        //printer_data = getPrinter();
-        //        //job_data = (printer_data.state.flags.printing || printer_data.state.flags.paused) ? (getJob()) : null;
-        //        //worker.RunWorkerAsync();
-        //        TextBlock1.Text = "";
-        //        if (1 == 1) TextBlock1.Text += "Printer state: " + printer_data.state.stateString + "\n";
-        //        if (1 == 1) TextBlock1.Text += "Tool temp: " + printer_data.temperature.temps.tool0.actual.ToString();
-        //        if (1 == 1) TextBlock1.Text += "/" + printer_data.temperature.temps.tool0.target.ToString() + "\n";
-        //        if (1 == 1) TextBlock1.Text += "Bed temp: " + printer_data.temperature.temps.bed.actual.ToString() + "\n";
-        //        if (job_data != null)
-        //        {
-        //            TextBlock1.Text += "Job progress: " + job_data.progress.completion.ToString();
-        //            //TaskbarItemInfo.ProgressValue = job_data.progress.completion/100;
-        //        }
-        //        TextBlock1.Text += "Bar: " + App.settings.visibleProgressbar.ToString();
-        //        //TaskbarItemInfo.ProgressValue = Convert.ToDouble(printer_data.temperature.temps.tool0.actual/100);
-        //        //TextBlock1.Text = "Current IP setting:\n"+settings.OctoPrintIP;
-        //        Application.Current.Resources["Try_visibility"] = Visibility.Hidden;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        dataTimer.Stop();
-        //        Application.Current.Resources["Try_visibility"] = Visibility.Visible;
-        //        this.TextBlock1.Text = "Could not connect to printer.\n"
-        //            +"Ip setting: "+ App.settings.OctoPrintIP +"\n"
-        //            +"API-key: " + App.settings.API_key;
-        //        System.Windows.Forms.MessageBox.Show("Error:\n"+ex);
-        //    }
-        //}
     }
 }

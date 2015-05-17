@@ -55,8 +55,6 @@ namespace OctoPrint_monitor
     public class cTemperature
     {
         public cTemps temps { get; set; }
-        //public cBed bed { get; set; }
-        //public cTool0 tool0 { get; set; }
     }
     public class cTemps
     {
@@ -119,15 +117,4 @@ namespace OctoPrint_monitor
         public string api { get; set; }
         public string server { get; set; }
     }
-
-    //[Serializable]
-    //public class cSettings
-    //{
-    //    public string OctoPrintIP = null;
-    //    public string API_key = null;
-    //    public string settingsFile = "myFile.xml";
-    //    public int updateInterval = 5;
-    //    public bool visibleProgressbar = false;
-    //    public string error_noConnection = "Couldn't connect to OctoPrint.\nMake sure your IP setting was corrent\nand you have connected to your printer in OctoPrint.";
-    //}
 }
