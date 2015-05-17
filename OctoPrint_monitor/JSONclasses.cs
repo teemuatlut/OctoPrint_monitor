@@ -38,7 +38,8 @@ namespace OctoPrint_monitor
     }
     public class cState
     {
-        public string text { get; set; }
+        public int state { get; set; }
+        public string stateString { get; set; }
         public cFlags flags { get; set; }
     }
     public class cFlags
@@ -52,6 +53,12 @@ namespace OctoPrint_monitor
         public bool closedError { get; set; }
     }
     public class cTemperature
+    {
+        public cTemps temps { get; set; }
+        //public cBed bed { get; set; }
+        //public cTool0 tool0 { get; set; }
+    }
+    public class cTemps
     {
         public cBed bed { get; set; }
         public cTool0 tool0 { get; set; }
@@ -76,11 +83,12 @@ namespace OctoPrint_monitor
     {
         public cJob job { get; set; }
         public cProgress progress { get; set; }
+        public string state { get; set; }
     }
     public class cJob
     {
         public cFile file { get; set; }
-        public int estimatedPrintTime { get; set; }
+        public double estimatedPrintTime { get; set; }
         public cFilament filament { get; set; }
     }
     public class cProgress
@@ -92,7 +100,11 @@ namespace OctoPrint_monitor
     }
     public class cFilament
     {
-        public int length { get; set; }
+        public cTool tool0 { get; set; }
+    }
+    public class cTool
+    {
+        public float length { get; set; }
         public float volume { get; set; }
     }
     public class cFile
@@ -108,12 +120,14 @@ namespace OctoPrint_monitor
         public string server { get; set; }
     }
 
-    [Serializable]
-    public class cSettings
-    {
-        public string OctoPrintIP = null;
-        public string API_key = null;//"3CE3939BEA404D2B9D9BE5A1B3CCD093"; //null;
-        public string settingsFile = "myFile.xml";
-        public int updateInterval = 5;
-    }
+    //[Serializable]
+    //public class cSettings
+    //{
+    //    public string OctoPrintIP = null;
+    //    public string API_key = null;
+    //    public string settingsFile = "myFile.xml";
+    //    public int updateInterval = 5;
+    //    public bool visibleProgressbar = false;
+    //    public string error_noConnection = "Couldn't connect to OctoPrint.\nMake sure your IP setting was corrent\nand you have connected to your printer in OctoPrint.";
+    //}
 }

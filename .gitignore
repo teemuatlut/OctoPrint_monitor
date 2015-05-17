@@ -7,9 +7,9 @@
 *.sln.docstates
 
 # Build results
-[Dd]ebug/
-[Dd]ebugPublic/
-[Rr]elease/
+#[Dd]ebug/
+#[Dd]ebugPublic/
+#[Rr]elease/
 x64/
 build/
 bld/
@@ -28,7 +28,7 @@ bld/
 TestResult.xml
 
 # Build Results of an ATL Project
-[Dd]ebugPS/
+Dd]ebugPS/
 [Rr]eleasePS/
 dlldata.c
 

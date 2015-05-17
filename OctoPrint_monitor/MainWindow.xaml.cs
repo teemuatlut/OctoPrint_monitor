@@ -18,6 +18,7 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Threading;
+using System.Windows.Shell;
 
 namespace OctoPrint_monitor
 {
@@ -134,30 +135,48 @@ namespace OctoPrint_monitor
     {
 
         // Setup
-        public static cSettings settings = new cSettings();
-        settingsWindow SettingWindow = new settingsWindow();
-        printer data = new printer();
-        DispatcherTimer dataTimer = new DispatcherTimer();
-            
+        //public static cSettings settings = new cSettings();
+        //settingsWindow SettingWindow = new settingsWindow();
+        printer printer_data = new printer();
+        jobMain job_data = new jobMain();
+        public static DispatcherTimer dataTimer = new DispatcherTimer();
 
         public MainWindow()
         {
             InitializeComponent();
+            //TaskbarItemInfo.ProgressState = System.Windows.Shell.TaskbarItemProgressState.Normal;
+            TaskbarItemInfo.ProgressValue = 0.5;
+            //this.DataContext = App.settings;
+            //App.settings.visibleProgressbar = TaskbarItemProgressState.Normal;
             TextBlock1.FontSize = 24;
             initializeTicker();
 
-            if (settings.OctoPrintIP == null || settings.API_key == null)
+            if (App.settings.OctoPrintIP == null || App.settings.API_key == null)
             {
-                if (File.Exists(settings.settingsFile))
+                if (File.Exists(App.settings.settingsFile))
                 {
-                    readSettings(settings.settingsFile);
-                    dataTimer.Start();
+                    readSettings(App.settings.settingsFile);
+                    if ((App.settings.OctoPrintIP != null) && (App.settings.API_key != null))
+                    {
+                        dataTimer.Start();
+                        updateScreen();
+                    }
+                        
                 }
                 else
                 {
+                    settingsWindow SettingWindow = new settingsWindow();
                     SettingWindow.Show();
                 }
             }
+            //if (settings.visibleProgressbar)
+            //{
+            //    myTaskbarIcon.Visibility = Visibility.Visible;
+            //}
+            //else
+            //{
+            //    myTaskbarIcon.Visibility = Visibility.Hidden;
+            //}
             //if (settings.OctoPrintIP == null)
             //{
             //    SettingWindow.Show();
@@ -165,8 +184,6 @@ namespace OctoPrint_monitor
             //TaskBarIcon 
             //Properties.Settings.Default.test_setting1
 
-            //settings.API_key = "3CE3939BEA404D2B9D9BE5A1B3CCD093";
-            //settings.OctoPrintIP = "192.168.1.166";
 
         }
 
@@ -174,7 +191,8 @@ namespace OctoPrint_monitor
         {
             //var dataTimer = new System.Windows.Threading.DispatcherTimer();
             dataTimer.Tick += dataTimer_Tick;
-            dataTimer.Interval = new TimeSpan(0, 0, settings.updateInterval);
+            dataTimer.Interval = new TimeSpan(0, 0, App.settings.updateInterval);
+            dataTimer.Stop();
         }
 
         void dataTimer_Tick(object sender, EventArgs e)
@@ -189,15 +207,45 @@ namespace OctoPrint_monitor
 
         private void settingsBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            settingsWindow SettingWindow = new settingsWindow();
             SettingWindow.Show();
             
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            //dataTimer.Stop();
+            dataTimer.Stop();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            updateScreen();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            //TaskbarItemInfo.ProgressState = System.Windows.Shell.TaskbarItemProgressState.Normal;
+            //Application.Current.Resources["TaskProgressVis"] = System.Windows.Shell.TaskbarItemProgressState.Normal;
+            //this.DataContext = App.settings;
+            //App.settings.visibleProgressbar = TaskbarItemProgressState.Normal;
+            //System.Windows.Forms.MessageBox.Show(Application.Current.Resources["TaskProgressVis"].ToString());
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            //TaskbarItemInfo.ProgressState = System.Windows.Shell.TaskbarItemProgressState.None;
+            //Application.Current.Resources["TaskProgressVis"] = System.Windows.Shell.TaskbarItemProgressState.None;
+            //this.DataContext = App.settings;
+            //App.settings.visibleProgressbar = TaskbarItemProgressState.Error;
+            //System.Windows.Forms.MessageBox.Show(Application.Current.Resources["TaskProgressVis"].ToString());
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.DataContext = App.settings;
+        }
+
+
 
 
         //private void Button_Click(object sender, RoutedEventArgs e)
