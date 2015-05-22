@@ -1,5 +1,39 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="OctoPrint_monitor.Properties" GeneratedClassName="Settings">
   <Profiles />
-  <Settings />
+  <Settings>
+    <Setting Name="version" Type="System.String" Scope="User">
+      <Value Profile="(Default)">v0.1-alpha</Value>
+    </Setting>
+    <Setting Name="API_key" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Please fill</Value>
+    </Setting>
+    <Setting Name="IP" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Please fill</Value>
+    </Setting>
+    <Setting Name="settingsFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="updateInterval" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">10</Value>
+    </Setting>
+    <Setting Name="visibleProgressbar" Type="System.Windows.Shell.TaskbarItemProgressState" Scope="User">
+      <Value Profile="(Default)">Normal</Value>
+    </Setting>
+    <Setting Name="AlwaysOnTop" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="OpacitySetting" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">100</Value>
+    </Setting>
+    <Setting Name="TaskbarToggle" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="taskIconToggle" Type="System.Windows.Visibility" Scope="User">
+      <Value Profile="(Default)">Hidden</Value>
+    </Setting>
+    <Setting Name="backgroundColor" Type="System.Windows.Media.SolidColorBrush" Scope="User">
+      <Value Profile="(Default)">#FFFF0000</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>

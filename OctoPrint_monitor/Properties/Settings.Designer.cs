@@ -22,5 +22,137 @@ namespace OctoPrint_monitor.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("v0.1-alpha")]
+        public string version {
+            get {
+                return ((string)(this["version"]));
+            }
+            set {
+                this["version"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Please fill")]
+        public string API_key {
+            get {
+                return ((string)(this["API_key"]));
+            }
+            set {
+                this["API_key"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Please fill")]
+        public string IP {
+            get {
+                return ((string)(this["IP"]));
+            }
+            set {
+                this["IP"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string settingsFile {
+            get {
+                return ((string)(this["settingsFile"]));
+            }
+            set {
+                this["settingsFile"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public int updateInterval {
+            get {
+                return ((int)(this["updateInterval"]));
+            }
+            set {
+                this["updateInterval"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Normal")]
+        public global::System.Windows.Shell.TaskbarItemProgressState visibleProgressbar {
+            get {
+                return ((global::System.Windows.Shell.TaskbarItemProgressState)(this["visibleProgressbar"]));
+            }
+            set {
+                this["visibleProgressbar"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool AlwaysOnTop {
+            get {
+                return ((bool)(this["AlwaysOnTop"]));
+            }
+            set {
+                this["AlwaysOnTop"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        public double OpacitySetting {
+            get {
+                return ((double)(this["OpacitySetting"]));
+            }
+            set {
+                this["OpacitySetting"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool TaskbarToggle {
+            get {
+                return ((bool)(this["TaskbarToggle"]));
+            }
+            set {
+                this["TaskbarToggle"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Hidden")]
+        public global::System.Windows.Visibility taskIconToggle {
+            get {
+                return ((global::System.Windows.Visibility)(this["taskIconToggle"]));
+            }
+            set {
+                this["taskIconToggle"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FFFF0000")]
+        public global::System.Windows.Media.SolidColorBrush backgroundColor {
+            get {
+                return ((global::System.Windows.Media.SolidColorBrush)(this["backgroundColor"]));
+            }
+            set {
+                this["backgroundColor"] = value;
+            }
+        }
     }
 }

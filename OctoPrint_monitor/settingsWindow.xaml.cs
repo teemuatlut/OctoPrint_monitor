@@ -22,21 +22,36 @@ namespace OctoPrint_monitor
         public settingsWindow()
         {
             InitializeComponent();
-            APIBox.Text = App.settings.API_key;
-            IPBox.Text = App.settings.OctoPrintIP;
-            UpdateBox.Text = App.settings.updateInterval.ToString();
-            barCheck.IsChecked = (App.settings.visibleProgressbar == TaskbarItemProgressState.Normal);
+            //APIBox.Text = App.settings.API_key;
+            //IPBox.Text = App.settings.OctoPrintIP;
+            //UpdateBox.Text = App.settings.updateInterval.ToString();
+            //barCheck.IsChecked = (App.settings.visibleProgressbar == TaskbarItemProgressState.Normal);
+            APIBox.Text = Properties.Settings.Default.API_key;
+            IPBox.Text = Properties.Settings.Default.IP;
+            UpdateBox.Text = Properties.Settings.Default.updateInterval.ToString();
+            barCheck.IsChecked = (Properties.Settings.Default.visibleProgressbar == TaskbarItemProgressState.Normal);
+            onTopBox.IsChecked = (Properties.Settings.Default.AlwaysOnTop == true);
+            opacityValue.Text = (Properties.Settings.Default.OpacitySetting*100).ToString();
+            taskbarToggle.IsChecked = Properties.Settings.Default.TaskbarToggle;
         }
 
         public void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             try
             {
-                App.settings.API_key = APIBox.Text;
-                App.settings.OctoPrintIP = IPBox.Text;
-                App.settings.updateInterval = Convert.ToInt32( UpdateBox.Text);
-                MainWindow.saveSettings(App.settings.settingsFile);
-                MainWindow.dataTimer.Interval = new TimeSpan(0, 0, App.settings.updateInterval);
+                //App.settings.API_key = APIBox.Text;
+                //App.settings.OctoPrintIP = IPBox.Text;
+                //App.settings.updateInterval = Convert.ToInt32( UpdateBox.Text);
+                //MainWindow.saveSettings(App.settings.settingsFile);
+                //MainWindow.dataTimer.Interval = new TimeSpan(0, 0, App.settings.updateInterval);
+                //MainWindow.dataTimer.Start();
+                //Hide();
+                Properties.Settings.Default.API_key = APIBox.Text;
+                Properties.Settings.Default.IP = IPBox.Text;
+                Properties.Settings.Default.updateInterval = Convert.ToInt32(UpdateBox.Text);
+                //MainWindow.saveSettings(Properties.Settings.Default.settingsFile);
+                Properties.Settings.Default.Save();
+                MainWindow.dataTimer.Interval = new TimeSpan(0, 0, Properties.Settings.Default.updateInterval);
                 MainWindow.dataTimer.Start();
                 Hide();
             }
@@ -53,10 +68,15 @@ namespace OctoPrint_monitor
             {
                 try
                 {
-                    App.settings.API_key = APIBox.Text;
-                    App.settings.OctoPrintIP = IPBox.Text;
+                    //App.settings.API_key = APIBox.Text;
+                    //App.settings.OctoPrintIP = IPBox.Text;
+                    Properties.Settings.Default.API_key = APIBox.Text;
+                    Properties.Settings.Default.IP = IPBox.Text;
                     MainWindow.getVersion();
                     this.Resources["OK_icon_visibility"] = Visibility.Visible;
+                    //System.Windows.Media.Brush newBrush = new System.Windows.Media.Brush;
+                    //connBtn.BorderBrush = System.Windows.Media.Brush.Green;
+                    //connBtn.BorderBrush = "Green";
                 }
                 catch (Exception ex)
                 {
@@ -77,24 +97,61 @@ namespace OctoPrint_monitor
 
         public void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
-            App.settings.visibleProgressbar = TaskbarItemProgressState.Normal;
+            //App.settings.visibleProgressbar = TaskbarItemProgressState.Normal;
+            Properties.Settings.Default.visibleProgressbar = TaskbarItemProgressState.Normal;
         }
 
         private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
-            App.settings.visibleProgressbar = TaskbarItemProgressState.Error;
+            //App.settings.visibleProgressbar = TaskbarItemProgressState.Error;
+            Properties.Settings.Default.visibleProgressbar = TaskbarItemProgressState.None;
         }
 
-        private void greenBtn_Click(object sender, RoutedEventArgs e)
+        private void onTopBox_Checked(object sender, RoutedEventArgs e)
         {
-            this.DataContext = App.settings;
-            App.settings.visibleProgressbar = TaskbarItemProgressState.Normal;
+            Properties.Settings.Default.AlwaysOnTop = true;
         }
 
-        private void yellowBtn_Click(object sender, RoutedEventArgs e)
+        private void onTopBox_Unchecked(object sender, RoutedEventArgs e)
         {
-            this.DataContext = App.settings;
-            App.settings.visibleProgressbar = TaskbarItemProgressState.Paused;
+            Properties.Settings.Default.AlwaysOnTop = false;
         }
+
+        private void opacityValue_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (opacityValue.IsFocused)
+            {
+                try
+                {
+                    int value = Convert.ToInt16(opacityValue.Text);
+                    if (value > 100) value = 100;
+                    if (value < 10) value = 10;
+                    Properties.Settings.Default.OpacitySetting = (double)value / 100;
+                }
+                catch (Exception ex) { }
+            }
+        }
+
+        private void CheckBox_Checked_1(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.TaskbarToggle = true;
+        }
+
+        private void taskbarToggle_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.TaskbarToggle = false;
+        }
+
+        //private void greenBtn_Click(object sender, RoutedEventArgs e)
+        //{
+        //    this.DataContext = App.settings;
+        //    App.settings.visibleProgressbar = TaskbarItemProgressState.Normal;
+        //}
+
+        //private void yellowBtn_Click(object sender, RoutedEventArgs e)
+        //{
+        //    this.DataContext = App.settings;
+        //    App.settings.visibleProgressbar = TaskbarItemProgressState.Paused;
+        //}
     }
 }

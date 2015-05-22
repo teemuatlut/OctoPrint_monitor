@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:win="clr-namespace:System.Windows;assembly=System.Windows"
+        WindowStyle="ToolWindow"
         Title="Settings save when closing" Height="300" Width="300" Closing="Window_Closing" Topmost="True" WindowStartupLocation="CenterOwner">
     <Window.Resources>
         <sys:String x:Key="APIbox_key">string1</sys:String>
@@ -10,16 +11,22 @@
         <Visibility x:Key="OK_icon_visibility">Hidden</Visibility>
     </Window.Resources>
     <Grid x:Name="GridMain">
-        <Button x:Name="connBtn" Content="Test connection" HorizontalAlignment="Left" Margin="28,84,0,0" VerticalAlignment="Top" Width="120" Click="connBtn_Click"/>
-        <TextBox x:Name="IPBox" HorizontalAlignment="Left" Height="23" Margin="28,21,0,0" TextWrapping="Wrap" Text="{DynamicResource IPbox_key}" VerticalAlignment="Top" Width="254" MouseUp="IPBox_MouseUp"/>
-        <TextBox x:Name="APIBox" HorizontalAlignment="Left" Height="23" Margin="28,49,0,0" TextWrapping="Wrap" Text="{DynamicResource APIbox_key}" VerticalAlignment="Top" Width="254"/>
-        <Image x:Name="ConnOKico" HorizontalAlignment="Left" Height="22" Margin="153,84,0,0" VerticalAlignment="Top" Width="24" Source="Icons/Oxygen-Icons.org-Oxygen-Actions-dialog-ok-apply.ico" Visibility="{DynamicResource OK_icon_visibility}"/>
+        <Button x:Name="connBtn" HorizontalAlignment="Left" Margin="215,19,0,0" VerticalAlignment="Top" Width="67" Click="connBtn_Click" Height="53">
+            <TextBlock TextAlignment="Center">Test<LineBreak/>connection</TextBlock>
+        </Button>
+        <TextBox x:Name="IPBox" HorizontalAlignment="Left" Height="23" Margin="28,21,0,0" TextWrapping="Wrap" Text="{DynamicResource IPbox_key}" VerticalAlignment="Top" Width="182" MouseUp="IPBox_MouseUp"/>
+        <TextBox x:Name="APIBox" HorizontalAlignment="Left" Height="23" Margin="28,49,0,0" TextWrapping="Wrap" Text="{DynamicResource APIbox_key}" VerticalAlignment="Top" Width="182"/>
+        <Image x:Name="ConnOKico" HorizontalAlignment="Left" Height="22" Margin="215,19,0,0" VerticalAlignment="Top" Width="24" Source="Icons/Oxygen-Icons.org-Oxygen-Actions-dialog-ok-apply.ico" Visibility="{DynamicResource OK_icon_visibility}"/>
         <Label Content="IP" HorizontalAlignment="Left" Margin="8,19,0,0" VerticalAlignment="Top"/>
         <Label Content="API" HorizontalAlignment="Left" Margin="0,46,0,0" VerticalAlignment="Top"/>
-        <Label Content="Update interval" HorizontalAlignment="Left" Margin="10,111,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="UpdateBox" HorizontalAlignment="Left" Height="22" Margin="106,113,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="53"/>
-        <CheckBox x:Name="barCheck" Content="Progress bar" HorizontalAlignment="Left" Margin="10,142,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
-        <Button x:Name="greenBtn" Content="Green" HorizontalAlignment="Left" Margin="14,175,0,0" VerticalAlignment="Top" Width="76" Click="greenBtn_Click"/>
-        <Button x:Name="yellowBtn" Content="Yellow" HorizontalAlignment="Left" Margin="132,175,0,0" VerticalAlignment="Top" Width="75" Click="yellowBtn_Click"/>
+        <Label Content="Update interval" HorizontalAlignment="Left" Margin="133,109,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="UpdateBox" HorizontalAlignment="Left" Height="22" Margin="229,111,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="53"/>
+        <CheckBox x:Name="barCheck" Content="Progress bar" HorizontalAlignment="Left" Margin="10,90,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+        <CheckBox x:Name="onTopBox" Content="Always on top" HorizontalAlignment="Left" Margin="10,111,0,0" VerticalAlignment="Top" Checked="onTopBox_Checked" Unchecked="onTopBox_Unchecked"/>
+        <TextBox x:Name="opacityValue" HorizontalAlignment="Left" Height="22" Margin="229,84,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="53" TextChanged="opacityValue_TextChanged"/>
+        <Label Content="Opacity" HorizontalAlignment="Left" Margin="173,82,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="taskbarToggle" Content="Taskbar" HorizontalAlignment="Left" Margin="10,132,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked_1" Unchecked="taskbarToggle_Unchecked"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="229,140,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="53"/>
+        <Label Content="Background color" HorizontalAlignment="Left" Margin="120,138,0,0" VerticalAlignment="Top" Width="104"/>
     </Grid>
 </Window>
