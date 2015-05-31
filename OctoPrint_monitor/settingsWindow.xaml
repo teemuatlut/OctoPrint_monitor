@@ -5,7 +5,7 @@
         xmlns:win="clr-namespace:System.Windows;assembly=System.Windows"
         WindowStyle="ToolWindow"
         Title="Settings save when closing"
-        Height="270" Width="350"
+        Height="270" Width="380"
         Closing="Window_Closing"
         Topmost="True"
         WindowStartupLocation="CenterOwner"
@@ -31,17 +31,17 @@
                  TabIndex="10"
                  HorizontalAlignment="Left"
                  Height="23"
-                 Margin="28,21,0,0"
+                 Margin="28,21,87,10"
                  TextWrapping="Wrap"
                  Text="{DynamicResource IPbox_key}"
-                 VerticalAlignment="Top" Width="199"
+                 VerticalAlignment="Top" Width="253"
                  MouseUp="IPBox_MouseUp"
                  ToolTip="Format: ip_address:port"/>
         <TextBox x:Name="APIBox"
                  TabIndex="20"
                  HorizontalAlignment="Left"
-                 Height="23" Width="199"
-                 Margin="28,49,0,0"
+                 Height="23" Width="253"
+                 Margin="28,49,87,0"
                  TextWrapping="Wrap"
                  Text="{DynamicResource APIbox_key}"
                  VerticalAlignment="Top"
@@ -49,7 +49,7 @@
         <Image x:Name="ConnOKico"
                HorizontalAlignment="Left"
                Height="22" Width="24"
-               Margin="267,19,0,0"
+               Margin="287,25,0,0"
                VerticalAlignment="Top"
                Source="Icons/Oxygen-Icons.org-Oxygen-Actions-dialog-ok-apply.ico"
                Visibility="{DynamicResource OK_icon_visibility}"/>
@@ -63,7 +63,7 @@
                VerticalAlignment="Top"/>
         <Label Content="Update interval"
                HorizontalAlignment="Left"
-               Margin="147,83,0,0"
+               Margin="177,83,0,0"
                VerticalAlignment="Top"
                HorizontalContentAlignment="Right"
                Width="103"/>
@@ -125,7 +125,7 @@
         </TextBox>
         <Label Content="Text color"
                HorizontalAlignment="Left"
-               Margin="147,137,0,0"
+               Margin="177,137,0,0"
                VerticalAlignment="Top"
                Width="103"
                HorizontalContentAlignment="Right"/>
@@ -151,7 +151,7 @@
         </TextBox>
         <Label Content="Background color"
                HorizontalAlignment="Left"
-               Margin="147,109,0,0"
+               Margin="177,109,0,0"
                VerticalAlignment="Top"
                HorizontalContentAlignment="Right"/>
         <CheckBox x:Name="targetTempCheck"
@@ -173,7 +173,7 @@
                  TabIndex="96"/>
         <Label Content="Border bottom color"
                HorizontalAlignment="Left"
-               Margin="130,194,0,0"
+               Margin="160,194,0,0"
                VerticalAlignment="Top"
                HorizontalContentAlignment="Right"
                Width="120" />
@@ -188,7 +188,7 @@
                  TabIndex="94"/>
         <Label Content="Border top color"
                HorizontalAlignment="Left"
-               Margin="147,166,0,0"
+               Margin="177,166,0,0"
                VerticalAlignment="Top"
                Width="103"
                HorizontalContentAlignment="Right"/>

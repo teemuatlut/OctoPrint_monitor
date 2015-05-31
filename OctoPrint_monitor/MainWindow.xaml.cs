@@ -33,7 +33,7 @@ namespace OctoPrint_monitor
         public static BackgroundWorker worker = new BackgroundWorker();
         public static settingsWindow SettingWindow = new settingsWindow();
         static bool printerPreviousState = false;
-        static int? previousPrintTime = 0;
+        static int previousPrintTime = 0;
         //public static TaskbarIcon myTaskbarIcon = new TaskbarIcon();
 
         public static int i = 0;
@@ -59,17 +59,17 @@ namespace OctoPrint_monitor
                 //settingsWindow SettingWindow = new settingsWindow();
                 SettingWindow.Show();
             }
-            //else
-            //{
+            else
+            {
                 worker.RunWorkerAsync();
-            //}
+                dataTimer.Start();
+            }
         }
 
         public void initializeTicker()
         {
             dataTimer.Tick += dataTimer_Tick;
             dataTimer.Interval = new TimeSpan(0, 0, Properties.Settings.Default.updateInterval);
-            dataTimer.Start();
         }
 
         void dataTimer_Tick(object sender, EventArgs e)
@@ -87,11 +87,6 @@ namespace OctoPrint_monitor
             dataTimer.Stop();
             myTaskbarIcon.Dispose();
         }
-
-        //private void tryBtn_Click(object sender, RoutedEventArgs e)
-        //{
-        //    worker.RunWorkerAsync();
-        //}
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -126,36 +121,30 @@ namespace OctoPrint_monitor
         {
             try
             {
-                //TextBlock1.Text = "";
-                //if (1 == 1) TextBlock1.Text += "Printer state: " + printer_data.state.stateString;
-                //if (1 == 1) TextBlock1.Text += "\nTool temp: " + printer_data.temperature.temps.tool0.actual.ToString();
-                //if (Properties.Settings.Default.showTarget.Equals(true)) TextBlock1.Text += "/" + printer_data.temperature.temps.tool0.target.ToString();
-                //if (1 == 1) TextBlock1.Text += "\nBed temp: " + printer_data.temperature.temps.bed.actual.ToString();
-                //if (job_data != null)
-                //{
-                //    TextBlock1.Text += "\nJob progress: " + job_data.progress.completion.ToString();
-                //    TaskbarItemInfo.ProgressValue = job_data.progress.completion/100;
-                //}
-                ////TextBlock1.Text += "Bar: " + App.settings.visibleProgressbar.ToString();
-                ////TextBlock1.Text += "Bar: " + Properties.Settings.Default.visibleProgressbar.ToString();
-                ////Application.Current.Resources["Try_visibility"] = Visibility.Hidden;
-                //window_frame.Title = "";
-                //if (job_data != null) window_frame.Title += job_data.progress.completion.ToString() + " | ";
-                //if (1 == 1) window_frame.Title += printer_data.temperature.temps.tool0.actual.ToString() + " | ";
-                //if (1 == 1) window_frame.Title += printer_data.temperature.temps.bed.actual.ToString();
-
-                //TextBlock1.Text += "\n" + Properties.Settings.Default.IP.ToString();
                 update_screen();
-                if (job_data != null) previousPrintTime = job_data.progress.printTime;
+                if (job_data != null)
+                {
+                    previousPrintTime = job_data.progress.printTime ?? default(int);
+                }
                 if (printerPreviousState.Equals(true)
                     && printer_data.state.flags.printing.Equals(false)
                     && printer_data.state.flags.paused.Equals(false)
-                    && printer_data.state.flags.error.Equals(false))
+                    && printer_data.state.flags.error.Equals(false)
+                    && Properties.Settings.Default.taskIconToggle.Equals(true))
                 {
+                    //double? _int = previousPrintTime;
+                    var value = new DateTime(0);
+                    value = value.AddSeconds(previousPrintTime);
+                    //Console.WriteLine("Print time was "
+                    //    + value.Hour.ToString() + "h "
+                    //    + value.Minute.ToString() + "s");
+
                     myTaskbarIcon.ShowBalloonTip("Print finished!",
-                        "Elapsed time: " + previousPrintTime.ToString(),
+                        "Elapsed time: "
+                        + value.Hour.ToString() + "h "
+                        + value.Minute.ToString() + "min",
                         BalloonIcon.Info);
-                    System.Windows.Forms.MessageBox.Show("Print finished!");
+                    //System.Windows.Forms.MessageBox.Show("Print finished!");
                 }
                 printerPreviousState = printer_data.state.flags.printing;
             }
@@ -174,26 +163,6 @@ namespace OctoPrint_monitor
         }
         void update_screen()
         {
-            //TextBlock1.Text = "";
-            //if (1 == 1) TextBlock1.Text += "Printer state: " + printer_data.state.stateString;
-            //if (1 == 1) TextBlock1.Text += "\nTool temp: " + printer_data.temperature.temps.tool0.actual.ToString();
-            //if (Properties.Settings.Default.showTarget.Equals(true)) TextBlock1.Text += "/" + printer_data.temperature.temps.tool0.target.ToString();
-            //if (1 == 1) TextBlock1.Text += "\nBed temp: " + printer_data.temperature.temps.bed.actual.ToString();
-            //if (Properties.Settings.Default.showTarget.Equals(true)) TextBlock1.Text += "/" + printer_data.temperature.temps.bed.target.ToString();
-            //if (job_data != null)
-            //{
-            //    TextBlock1.Text += "\nJob progress: " + job_data.progress.completion.ToString();
-            //    TaskbarItemInfo.ProgressValue = job_data.progress.completion / 100;
-            //}
-            ////TextBlock1.Text += "Bar: " + App.settings.visibleProgressbar.ToString();
-            ////TextBlock1.Text += "Bar: " + Properties.Settings.Default.visibleProgressbar.ToString();
-            ////Application.Current.Resources["Try_visibility"] = Visibility.Hidden;
-            //window_frame.Title = "";
-            //if (job_data != null) window_frame.Title += job_data.progress.completion.ToString() + " | ";
-            //if (1 == 1) window_frame.Title += printer_data.temperature.temps.tool0.actual.ToString() + " | ";
-            //if (1 == 1) window_frame.Title += printer_data.temperature.temps.bed.actual.ToString();
-
-            //TextBlock1.Text += "\n" + Properties.Settings.Default.IP.ToString();
             StringBuilder myBuilder = new StringBuilder();
             StringBuilder myBuilder2 = new StringBuilder();
             //if (1 == 1) myBuilder.AppendFormat("Printer state: {0}", printer_data.state.stateString);

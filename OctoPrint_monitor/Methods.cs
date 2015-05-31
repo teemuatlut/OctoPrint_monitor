@@ -13,15 +13,15 @@ namespace OctoPrint_monitor
         public static version getVersion()
         {
             string json_string="";
-            try
-            {
+            //try
+            //{
                 //json_string = getJSONstring(App.settings.OctoPrintIP + "/api/version");
                 json_string = getJSONstring(Properties.Settings.Default.IP + "/api/version");
-            }
-            catch (Exception ex) 
-            {
-                System.Windows.Forms.MessageBox.Show("Couldn't connect to OctoPrint.\nMake sure your IP setting was corrent\nand you have connected to your printer in OctoPrint.");
-            }
+            //}
+            //catch (Exception ex) 
+            //{
+            //    System.Windows.Forms.MessageBox.Show("Couldn't connect to OctoPrint.\nMake sure your IP setting was corrent\nand you have connected to your printer in OctoPrint.");
+            //}
             MemoryStream ms = new MemoryStream(System.Text.ASCIIEncoding.ASCII.GetBytes(json_string));
             DataContractJsonSerializer js = new DataContractJsonSerializer(typeof(version));
             return (version)js.ReadObject(ms) as version;

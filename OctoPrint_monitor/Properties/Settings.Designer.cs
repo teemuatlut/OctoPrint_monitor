@@ -133,7 +133,7 @@ namespace OctoPrint_monitor.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool taskIconToggle {
             get {
                 return ((bool)(this["taskIconToggle"]));
@@ -145,7 +145,7 @@ namespace OctoPrint_monitor.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("#FFFFFFFF")]
+        [global::System.Configuration.DefaultSettingValueAttribute("#40000000")]
         public global::System.Windows.Media.SolidColorBrush backgroundColor {
             get {
                 return ((global::System.Windows.Media.SolidColorBrush)(this["backgroundColor"]));
@@ -157,7 +157,7 @@ namespace OctoPrint_monitor.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("#FF008000")]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF00FFFF")]
         public global::System.Windows.Media.SolidColorBrush textColor {
             get {
                 return ((global::System.Windows.Media.SolidColorBrush)(this["textColor"]));
@@ -181,7 +181,7 @@ namespace OctoPrint_monitor.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("#FF008000")]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF000000")]
         public global::System.Windows.Media.Color gradientTop {
             get {
                 return ((global::System.Windows.Media.Color)(this["gradientTop"]));
@@ -193,7 +193,7 @@ namespace OctoPrint_monitor.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("#FF0000FF")]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FFFF0000")]
         public global::System.Windows.Media.Color gradientBot {
             get {
                 return ((global::System.Windows.Media.Color)(this["gradientBot"]));

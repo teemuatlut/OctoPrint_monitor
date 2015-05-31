@@ -30,22 +30,22 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="taskIconToggle" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="backgroundColor" Type="System.Windows.Media.SolidColorBrush" Scope="User">
-      <Value Profile="(Default)">#FFFFFFFF</Value>
+      <Value Profile="(Default)">#40000000</Value>
     </Setting>
     <Setting Name="textColor" Type="System.Windows.Media.SolidColorBrush" Scope="User">
-      <Value Profile="(Default)">#FF008000</Value>
+      <Value Profile="(Default)">#FF00FFFF</Value>
     </Setting>
     <Setting Name="showTarget" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="gradientTop" Type="System.Windows.Media.Color" Scope="User">
-      <Value Profile="(Default)">#FF008000</Value>
+      <Value Profile="(Default)">#FF000000</Value>
     </Setting>
     <Setting Name="gradientBot" Type="System.Windows.Media.Color" Scope="User">
-      <Value Profile="(Default)">#FF0000FF</Value>
+      <Value Profile="(Default)">#FFFF0000</Value>
     </Setting>
   </Settings>
 </SettingsFile>

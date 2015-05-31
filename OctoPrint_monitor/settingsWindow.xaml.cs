@@ -29,7 +29,7 @@ namespace OctoPrint_monitor
             APIBox.Text = Properties.Settings.Default.API_key;
             IPBox.Text = Properties.Settings.Default.IP;
             UpdateBox.Text = Properties.Settings.Default.updateInterval.ToString();
-            barCheck.IsChecked = (Properties.Settings.Default.visibleProgressbar == TaskbarItemProgressState.Normal);
+            barCheck.IsChecked = (Properties.Settings.Default.visibleProgressbar == TaskbarItemProgressState.Error);
             onTopBox.IsChecked = (Properties.Settings.Default.AlwaysOnTop == true);
             onTopBox.IsChecked = (Properties.Settings.Default.AlwaysOnTop == true);
             iconToggle.IsChecked = (Properties.Settings.Default.taskIconToggle == true);
@@ -62,7 +62,8 @@ namespace OctoPrint_monitor
                 Properties.Settings.Default.Save();
                 MainWindow.dataTimer.Interval = new TimeSpan(0, 0, Properties.Settings.Default.updateInterval);
                 MainWindow.dataTimer.Start();
-                MainWindow.worker.RunWorkerAsync();
+                if (MainWindow.worker.IsBusy.Equals(false))
+                    MainWindow.worker.RunWorkerAsync();
                 Hide();
             }
             catch (Exception ex)
