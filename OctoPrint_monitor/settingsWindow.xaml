@@ -13,7 +13,7 @@
     <Window.Resources>
         <sys:String x:Key="APIbox_key">string1</sys:String>
         <sys:String x:Key="IPbox_key">string2</sys:String>
-        <Visibility x:Key="OK_icon_visibility">Hidden</Visibility>
+        <Visibility x:Key="OK_icon_visibility">Visible</Visibility>
     </Window.Resources>
     <Grid x:Name="GridMain">
         <Button x:Name="connBtn"
@@ -49,7 +49,7 @@
         <Image x:Name="ConnOKico"
                HorizontalAlignment="Left"
                Height="22" Width="24"
-               Margin="287,25,0,0"
+               Margin="297,22,0,0"
                VerticalAlignment="Top"
                Source="Icons/Oxygen-Icons.org-Oxygen-Actions-dialog-ok-apply.ico"
                Visibility="{DynamicResource OK_icon_visibility}"/>

@@ -55,15 +55,19 @@ namespace OctoPrint_monitor
                 //MainWindow.dataTimer.Interval = new TimeSpan(0, 0, App.settings.updateInterval);
                 //MainWindow.dataTimer.Start();
                 //Hide();
-                Properties.Settings.Default.API_key = APIBox.Text;
-                Properties.Settings.Default.IP = IPBox.Text;
+                if (APIBox.Text != "Please fill" && IPBox.Text != "Please fill")
+                {
+                    Properties.Settings.Default.API_key = APIBox.Text;
+                    Properties.Settings.Default.IP = IPBox.Text;
+                    MainWindow.dataTimer.Start();
+                    if (MainWindow.worker.IsBusy.Equals(false))
+                        MainWindow.worker.RunWorkerAsync();
+                }
                 Properties.Settings.Default.updateInterval = Convert.ToInt32(UpdateBox.Text);
                 //MainWindow.saveSettings(Properties.Settings.Default.settingsFile);
                 Properties.Settings.Default.Save();
                 MainWindow.dataTimer.Interval = new TimeSpan(0, 0, Properties.Settings.Default.updateInterval);
-                MainWindow.dataTimer.Start();
-                if (MainWindow.worker.IsBusy.Equals(false))
-                    MainWindow.worker.RunWorkerAsync();
+                //MainWindow.dataTimer.Start();
                 Hide();
             }
             catch (Exception ex)

@@ -32,7 +32,7 @@
         <TextBlock x:Name="TextBlock1"
                    HorizontalAlignment="Center"
                    TextWrapping="Wrap"
-                   Text="Connecting..."
+                   Text="Waiting connection"
                    TextAlignment="Center"
                    VerticalAlignment="Top"
                    Height="90" Width="140"
