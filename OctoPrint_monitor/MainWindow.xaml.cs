@@ -20,6 +20,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Threading;
 using System.Windows.Shell;
 using System.ComponentModel;
+using Hardcodet.Wpf.TaskbarNotification;
 
 
 namespace OctoPrint_monitor
@@ -29,70 +30,68 @@ namespace OctoPrint_monitor
         printer printer_data = new printer();
         jobMain job_data = new jobMain();
         public static DispatcherTimer dataTimer = new DispatcherTimer();
-        public BackgroundWorker worker = new BackgroundWorker();
+        public static BackgroundWorker worker = new BackgroundWorker();
+        public static settingsWindow SettingWindow = new settingsWindow();
+        static bool printerPreviousState = false;
+        static int? previousPrintTime = 0;
+        //public static TaskbarIcon myTaskbarIcon = new TaskbarIcon();
+
+        public static int i = 0;
 
         public MainWindow()
         {
             InitializeComponent();
 
             TaskbarItemInfo.Description = Properties.Settings.Default.version;
-            TaskbarItemInfo.ProgressValue = 0.5;
+            //TaskbarItemInfo.ProgressValue = 0.5;
             TextBlock1.FontSize = 12;
+
+            if (Properties.Settings.Default.taskIconToggle.Equals(true))
+                App.Current.Resources["isVisible"] = System.Windows.Visibility.Visible;
+            else
+                App.Current.Resources["isVisible"] = System.Windows.Visibility.Hidden;
+
             initializeTicker();
             create_bgWorker();
-            System.Windows.Forms.MessageBox.Show(Convert.ToString(this.Background.GetType()));
-            //Properties.Settings.Default.OpacitySetting = 50;
-
-           //if (App.settings.OctoPrintIP == null || App.settings.API_key == null)
-           // {
-           //     if (File.Exists(App.settings.settingsFile))
-           //     {
-           //         readSettings(App.settings.settingsFile);
-           //         if ((App.settings.OctoPrintIP != null) && (App.settings.API_key != null))
-           //         {
-           //             worker.RunWorkerAsync();
-           //             dataTimer.Start();
-           //         }
-
-           //     }
-           //     else
-           //     {
-           //         settingsWindow SettingWindow = new settingsWindow();
-           //         SettingWindow.Show();
-           //     }
-           // }
 
             if (Properties.Settings.Default.IP == "Please fill" || Properties.Settings.Default.API_key == "Please fill")
             {
-                settingsWindow SettingWindow = new settingsWindow();
+                //settingsWindow SettingWindow = new settingsWindow();
                 SettingWindow.Show();
             }
-            worker.RunWorkerAsync();
+            //else
+            //{
+                worker.RunWorkerAsync();
+            //}
         }
 
         public void initializeTicker()
         {
             dataTimer.Tick += dataTimer_Tick;
-            //dataTimer.Interval = new TimeSpan(0, 0, App.settings.updateInterval);
             dataTimer.Interval = new TimeSpan(0, 0, Properties.Settings.Default.updateInterval);
-            dataTimer.Stop();
+            dataTimer.Start();
         }
 
         void dataTimer_Tick(object sender, EventArgs e)
         {
-            worker.RunWorkerAsync();
+            //window_frame.Title = i.ToString();
+            //if (i % 10 == 0 && worker.IsBusy.Equals(false))
+            if(worker.IsBusy.Equals(false))
+                worker.RunWorkerAsync();
+            //i++;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            SettingWindow.Close();
             dataTimer.Stop();
             myTaskbarIcon.Dispose();
         }
 
-        private void tryBtn_Click(object sender, RoutedEventArgs e)
-        {
-            worker.RunWorkerAsync();
-        }
+        //private void tryBtn_Click(object sender, RoutedEventArgs e)
+        //{
+        //    worker.RunWorkerAsync();
+        //}
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -108,46 +107,116 @@ namespace OctoPrint_monitor
 
         void worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            printer_data = getPrinter();
-            job_data = (printer_data.state.flags.printing || printer_data.state.flags.paused) ? (getJob()) : null;
+            try
+            {
+                printer_data = getPrinter();
+                job_data = (printer_data.state.flags.printing || printer_data.state.flags.paused) ? (getJob()) : null;
+            }
+            catch (Exception ex)
+            {
+                printer_data = null;
+                job_data = null;
+                System.Windows.Forms.MessageBox.Show("Error:\n" + ex);
+                return;
+                //throw;
+            }
         }
 
         void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             try
             {
-                TextBlock1.Text = "";
-                if (1 == 1) TextBlock1.Text += "Printer state: " + printer_data.state.stateString + "\n";
-                if (1 == 1) TextBlock1.Text += "Tool temp: " + printer_data.temperature.temps.tool0.actual.ToString();
-                if (1 == 1) TextBlock1.Text += "/" + printer_data.temperature.temps.tool0.target.ToString() + "\n";
-                if (1 == 1) TextBlock1.Text += "Bed temp: " + printer_data.temperature.temps.bed.actual.ToString() + "\n";
-                if (job_data != null)
+                //TextBlock1.Text = "";
+                //if (1 == 1) TextBlock1.Text += "Printer state: " + printer_data.state.stateString;
+                //if (1 == 1) TextBlock1.Text += "\nTool temp: " + printer_data.temperature.temps.tool0.actual.ToString();
+                //if (Properties.Settings.Default.showTarget.Equals(true)) TextBlock1.Text += "/" + printer_data.temperature.temps.tool0.target.ToString();
+                //if (1 == 1) TextBlock1.Text += "\nBed temp: " + printer_data.temperature.temps.bed.actual.ToString();
+                //if (job_data != null)
+                //{
+                //    TextBlock1.Text += "\nJob progress: " + job_data.progress.completion.ToString();
+                //    TaskbarItemInfo.ProgressValue = job_data.progress.completion/100;
+                //}
+                ////TextBlock1.Text += "Bar: " + App.settings.visibleProgressbar.ToString();
+                ////TextBlock1.Text += "Bar: " + Properties.Settings.Default.visibleProgressbar.ToString();
+                ////Application.Current.Resources["Try_visibility"] = Visibility.Hidden;
+                //window_frame.Title = "";
+                //if (job_data != null) window_frame.Title += job_data.progress.completion.ToString() + " | ";
+                //if (1 == 1) window_frame.Title += printer_data.temperature.temps.tool0.actual.ToString() + " | ";
+                //if (1 == 1) window_frame.Title += printer_data.temperature.temps.bed.actual.ToString();
+
+                //TextBlock1.Text += "\n" + Properties.Settings.Default.IP.ToString();
+                update_screen();
+                if (job_data != null) previousPrintTime = job_data.progress.printTime;
+                if (printerPreviousState.Equals(true)
+                    && printer_data.state.flags.printing.Equals(false)
+                    && printer_data.state.flags.paused.Equals(false)
+                    && printer_data.state.flags.error.Equals(false))
                 {
-                    TextBlock1.Text += "Job progress: " + job_data.progress.completion.ToString();
-                    //TaskbarItemInfo.ProgressValue = job_data.progress.completion/100;
+                    myTaskbarIcon.ShowBalloonTip("Print finished!",
+                        "Elapsed time: " + previousPrintTime.ToString(),
+                        BalloonIcon.Info);
+                    System.Windows.Forms.MessageBox.Show("Print finished!");
                 }
-                //TextBlock1.Text += "Bar: " + App.settings.visibleProgressbar.ToString();
-                TextBlock1.Text += "Bar: " + Properties.Settings.Default.visibleProgressbar.ToString();
-                Application.Current.Resources["Try_visibility"] = Visibility.Hidden;
-                window_frame.Title = "";
-                if (job_data != null) window_frame.Title += job_data.progress.completion.ToString() + " | ";
-                if (1 == 1) window_frame.Title += printer_data.temperature.temps.tool0.actual.ToString() + " | " ;
-                if (1 == 1) window_frame.Title += printer_data.temperature.temps.bed.actual.ToString();
+                printerPreviousState = printer_data.state.flags.printing;
+            }
+            catch (WebException wex)
+            {
+                //dataTimer.Stop();
+                this.TextBlock1.Text = "Could not connect to printer.\n";
+                //    + "Ip setting: " + Properties.Settings.Default.IP + "\n"
+                //    + "API-key: " + Properties.Settings.Default.API_key;
+                //System.Windows.Forms.MessageBox.Show("Error:\n" + ex);
             }
             catch (Exception ex)
             {
-                dataTimer.Stop();
-                Application.Current.Resources["Try_visibility"] = Visibility.Visible;
-                //this.TextBlock1.Text = "Could not connect to printer.\n"
-                //    + "Ip setting: " + App.settings.OctoPrintIP + "\n"
-                //    + "API-key: " + App.settings.API_key;
-                this.TextBlock1.Text = "Could not connect to printer.\n"
-                    + "Ip setting: " + Properties.Settings.Default.IP + "\n"
-                    + "API-key: " + Properties.Settings.Default.API_key;
-                System.Windows.Forms.MessageBox.Show("Error:\n" + ex);
+                System.Windows.Forms.MessageBox.Show("Error:" + ex);
             }
         }
+        void update_screen()
+        {
+            //TextBlock1.Text = "";
+            //if (1 == 1) TextBlock1.Text += "Printer state: " + printer_data.state.stateString;
+            //if (1 == 1) TextBlock1.Text += "\nTool temp: " + printer_data.temperature.temps.tool0.actual.ToString();
+            //if (Properties.Settings.Default.showTarget.Equals(true)) TextBlock1.Text += "/" + printer_data.temperature.temps.tool0.target.ToString();
+            //if (1 == 1) TextBlock1.Text += "\nBed temp: " + printer_data.temperature.temps.bed.actual.ToString();
+            //if (Properties.Settings.Default.showTarget.Equals(true)) TextBlock1.Text += "/" + printer_data.temperature.temps.bed.target.ToString();
+            //if (job_data != null)
+            //{
+            //    TextBlock1.Text += "\nJob progress: " + job_data.progress.completion.ToString();
+            //    TaskbarItemInfo.ProgressValue = job_data.progress.completion / 100;
+            //}
+            ////TextBlock1.Text += "Bar: " + App.settings.visibleProgressbar.ToString();
+            ////TextBlock1.Text += "Bar: " + Properties.Settings.Default.visibleProgressbar.ToString();
+            ////Application.Current.Resources["Try_visibility"] = Visibility.Hidden;
+            //window_frame.Title = "";
+            //if (job_data != null) window_frame.Title += job_data.progress.completion.ToString() + " | ";
+            //if (1 == 1) window_frame.Title += printer_data.temperature.temps.tool0.actual.ToString() + " | ";
+            //if (1 == 1) window_frame.Title += printer_data.temperature.temps.bed.actual.ToString();
 
+            //TextBlock1.Text += "\n" + Properties.Settings.Default.IP.ToString();
+            StringBuilder myBuilder = new StringBuilder();
+            StringBuilder myBuilder2 = new StringBuilder();
+            //if (1 == 1) myBuilder.AppendFormat("Printer state: {0}", printer_data.state.stateString);
+            myBuilder.Append("Printer state: ");
+            myBuilder.Append(printer_data.state.stateString);
+            if (1 == 1) myBuilder.AppendLine().AppendFormat("Tool temp: {0:0.0}", printer_data.temperature.temps.tool0.actual);
+            if (Properties.Settings.Default.showTarget.Equals(true)) myBuilder.AppendFormat("/{0:0}", printer_data.temperature.temps.tool0.target);
+            if (1 == 1) myBuilder.AppendLine().AppendFormat("Bed temp: {0:0.0}", printer_data.temperature.temps.bed.actual);
+            if (Properties.Settings.Default.showTarget.Equals(true)) myBuilder.AppendFormat("/{0:0}", printer_data.temperature.temps.bed.target);
+            if (job_data != null)
+            {
+                myBuilder.AppendLine().AppendFormat("Job progress: {0:0}%", job_data.progress.completion);
+                TaskbarItemInfo.ProgressValue = job_data.progress.completion / 100;
+                myBuilder2.AppendFormat("{0:0}% | ", job_data.progress.completion);
+            }
+            myBuilder2.AppendFormat("{0:0.0} | {1:0.0}",
+                printer_data.temperature.temps.tool0.actual,
+                printer_data.temperature.temps.bed.actual);
+
+            TextBlock1.Text = myBuilder.ToString();
+            window_frame.Title = myBuilder2.ToString();
+
+        }
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             settingsWindow SettingWindow = new settingsWindow();

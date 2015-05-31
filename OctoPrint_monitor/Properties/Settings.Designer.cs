@@ -85,7 +85,7 @@ namespace OctoPrint_monitor.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Normal")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Error")]
         public global::System.Windows.Shell.TaskbarItemProgressState visibleProgressbar {
             get {
                 return ((global::System.Windows.Shell.TaskbarItemProgressState)(this["visibleProgressbar"]));
@@ -133,10 +133,10 @@ namespace OctoPrint_monitor.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Hidden")]
-        public global::System.Windows.Visibility taskIconToggle {
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool taskIconToggle {
             get {
-                return ((global::System.Windows.Visibility)(this["taskIconToggle"]));
+                return ((bool)(this["taskIconToggle"]));
             }
             set {
                 this["taskIconToggle"] = value;
@@ -145,13 +145,61 @@ namespace OctoPrint_monitor.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("#FFFF0000")]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FFFFFFFF")]
         public global::System.Windows.Media.SolidColorBrush backgroundColor {
             get {
                 return ((global::System.Windows.Media.SolidColorBrush)(this["backgroundColor"]));
             }
             set {
                 this["backgroundColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF008000")]
+        public global::System.Windows.Media.SolidColorBrush textColor {
+            get {
+                return ((global::System.Windows.Media.SolidColorBrush)(this["textColor"]));
+            }
+            set {
+                this["textColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool showTarget {
+            get {
+                return ((bool)(this["showTarget"]));
+            }
+            set {
+                this["showTarget"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF008000")]
+        public global::System.Windows.Media.Color gradientTop {
+            get {
+                return ((global::System.Windows.Media.Color)(this["gradientTop"]));
+            }
+            set {
+                this["gradientTop"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF0000FF")]
+        public global::System.Windows.Media.Color gradientBot {
+            get {
+                return ((global::System.Windows.Media.Color)(this["gradientBot"]));
+            }
+            set {
+                this["gradientBot"] = value;
             }
         }
     }

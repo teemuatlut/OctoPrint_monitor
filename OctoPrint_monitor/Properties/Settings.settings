@@ -18,7 +18,7 @@
       <Value Profile="(Default)">10</Value>
     </Setting>
     <Setting Name="visibleProgressbar" Type="System.Windows.Shell.TaskbarItemProgressState" Scope="User">
-      <Value Profile="(Default)">Normal</Value>
+      <Value Profile="(Default)">Error</Value>
     </Setting>
     <Setting Name="AlwaysOnTop" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
@@ -29,11 +29,23 @@
     <Setting Name="TaskbarToggle" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="taskIconToggle" Type="System.Windows.Visibility" Scope="User">
-      <Value Profile="(Default)">Hidden</Value>
+    <Setting Name="taskIconToggle" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="backgroundColor" Type="System.Windows.Media.SolidColorBrush" Scope="User">
-      <Value Profile="(Default)">#FFFF0000</Value>
+      <Value Profile="(Default)">#FFFFFFFF</Value>
+    </Setting>
+    <Setting Name="textColor" Type="System.Windows.Media.SolidColorBrush" Scope="User">
+      <Value Profile="(Default)">#FF008000</Value>
+    </Setting>
+    <Setting Name="showTarget" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="gradientTop" Type="System.Windows.Media.Color" Scope="User">
+      <Value Profile="(Default)">#FF008000</Value>
+    </Setting>
+    <Setting Name="gradientBot" Type="System.Windows.Media.Color" Scope="User">
+      <Value Profile="(Default)">#FF0000FF</Value>
     </Setting>
   </Settings>
 </SettingsFile>

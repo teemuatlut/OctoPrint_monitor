@@ -31,8 +31,17 @@ namespace OctoPrint_monitor
             UpdateBox.Text = Properties.Settings.Default.updateInterval.ToString();
             barCheck.IsChecked = (Properties.Settings.Default.visibleProgressbar == TaskbarItemProgressState.Normal);
             onTopBox.IsChecked = (Properties.Settings.Default.AlwaysOnTop == true);
-            opacityValue.Text = (Properties.Settings.Default.OpacitySetting*100).ToString();
+            onTopBox.IsChecked = (Properties.Settings.Default.AlwaysOnTop == true);
+            iconToggle.IsChecked = (Properties.Settings.Default.taskIconToggle == true);
+            targetTempCheck.IsChecked = (Properties.Settings.Default.showTarget == true);
+            //opacityValue.Text = (Properties.Settings.Default.OpacitySetting*100).ToString();
             taskbarToggle.IsChecked = Properties.Settings.Default.TaskbarToggle;
+            colorHexBox.Text = Properties.Settings.Default.backgroundColor.ToString();
+            textColorBox.Text = Properties.Settings.Default.textColor.ToString();
+            borderColorTop.Text = Properties.Settings.Default.gradientTop.ToString();
+            borderColorBot.Text = Properties.Settings.Default.gradientBot.ToString();
+
+            //testLabel.Content = Properties.Settings.Default.backgroundColor.ToString();
         }
 
         public void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -53,6 +62,7 @@ namespace OctoPrint_monitor
                 Properties.Settings.Default.Save();
                 MainWindow.dataTimer.Interval = new TimeSpan(0, 0, Properties.Settings.Default.updateInterval);
                 MainWindow.dataTimer.Start();
+                MainWindow.worker.RunWorkerAsync();
                 Hide();
             }
             catch (Exception ex)
@@ -98,7 +108,7 @@ namespace OctoPrint_monitor
         public void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
             //App.settings.visibleProgressbar = TaskbarItemProgressState.Normal;
-            Properties.Settings.Default.visibleProgressbar = TaskbarItemProgressState.Normal;
+            Properties.Settings.Default.visibleProgressbar = TaskbarItemProgressState.Error;
         }
 
         private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
@@ -117,20 +127,20 @@ namespace OctoPrint_monitor
             Properties.Settings.Default.AlwaysOnTop = false;
         }
 
-        private void opacityValue_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (opacityValue.IsFocused)
-            {
-                try
-                {
-                    int value = Convert.ToInt16(opacityValue.Text);
-                    if (value > 100) value = 100;
-                    if (value < 10) value = 10;
-                    Properties.Settings.Default.OpacitySetting = (double)value / 100;
-                }
-                catch (Exception ex) { }
-            }
-        }
+        //private void opacityValue_TextChanged(object sender, TextChangedEventArgs e)
+        //{
+        //    if (opacityValue.IsFocused)
+        //    {
+        //        try
+        //        {
+        //            int value = Convert.ToInt16(opacityValue.Text);
+        //            if (value > 100) value = 100;
+        //            if (value < 10) value = 10;
+        //            Properties.Settings.Default.OpacitySetting = (double)value / 100;
+        //        }
+        //        catch (Exception ex) { }
+        //    }
+        //}
 
         private void CheckBox_Checked_1(object sender, RoutedEventArgs e)
         {
@@ -141,6 +151,92 @@ namespace OctoPrint_monitor
         {
             Properties.Settings.Default.TaskbarToggle = false;
         }
+
+        private void background_LostFocus(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Color colorHexAsColor = (Color)ColorConverter.ConvertFromString(colorHexBox.Text);
+                SolidColorBrush myBrush = new SolidColorBrush(colorHexAsColor);
+                Properties.Settings.Default.backgroundColor = myBrush;
+                //colorLabel.Content = Properties.Settings.Default.backgroundColor.ToString();
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show("Invalid color value");
+            }
+        }
+
+        private void textColorBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            try {
+                Color colorHexAsColor = (Color)ColorConverter.ConvertFromString(textColorBox.Text);
+                SolidColorBrush myBrush = new SolidColorBrush(colorHexAsColor);
+                Properties.Settings.Default.textColor = myBrush;
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show("Invalid color value");
+            }
+        }
+
+        private void borderColorBot_LostFocus(object sender, RoutedEventArgs e)
+        {
+            try { 
+                Color colorHexAsColor = (Color)ColorConverter.ConvertFromString(borderColorBot.Text);
+                Properties.Settings.Default.gradientBot = colorHexAsColor;
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show("Invalid color value");
+            }
+        }
+
+        private void borderColorTop_LostFocus(object sender, RoutedEventArgs e)
+        {
+            try { 
+                Color colorHexAsColor = (Color)ColorConverter.ConvertFromString(borderColorTop.Text);
+                Properties.Settings.Default.gradientTop = colorHexAsColor;
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show("Invalid color value");
+            }
+        }
+
+        private void targetTempCheck_Checked(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.showTarget = true;
+        }
+
+        private void targetTempCheck_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.showTarget = false;
+        }
+
+        private void iconToggle_Checked(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.taskIconToggle = true;
+            //MainWindow.myTaskbarIcon.Visibility = System.Windows.Visibility.Visible;
+            //Application.Current.FindResource("isVisible") = "Visible";
+            App.Current.Resources["isVisible"] = System.Windows.Visibility.Visible;
+        }
+
+        private void iconToggle_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.taskIconToggle = false;
+            //MainWindow.myTaskbarIcon.Visibility = System.Windows.Visibility.Hidden;
+            //MainWindow.my
+            App.Current.Resources["isVisible"] = System.Windows.Visibility.Hidden;
+        }
+
+        //private void Button_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Color colorHexAsColor = (Color)ColorConverter.ConvertFromString(colorHexBox.Text);
+        //    SolidColorBrush myBrush = new SolidColorBrush(colorHexAsColor);
+        //    Properties.Settings.Default.backgroundColor = myBrush;
+        //    colorLabel.Content = Properties.Settings.Default.backgroundColor.ToString();
+        //}
 
         //private void greenBtn_Click(object sender, RoutedEventArgs e)
         //{

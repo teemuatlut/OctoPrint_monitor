@@ -5,15 +5,18 @@
         Height="100" Width="150"
         xmlns:win="clr-namespace:System.Windows;assembly=System.Windows"
         xmlns:tb="http://www.hardcodet.net/taskbar"
+        xmlns:properties="clr-namespace:OctoPrint_monitor.Properties"
         Closing="Window_Closing" Loaded="Window_Loaded" MouseDown="window_frame_MouseDown"
         Topmost="{Binding AlwaysOnTop}"
-        WindowStyle="None"
-        AllowsTransparency="True"
         ShowInTaskbar="{Binding TaskbarToggle}"
-        Background="{Binding backgroundColor}" BorderBrush="Red" BorderThickness="0">
+        AllowsTransparency="True" WindowStyle="None"
+        Background="{x:Null}">
     <Window.TaskbarItemInfo>
         <TaskbarItemInfo ProgressState="{Binding visibleProgressbar, UpdateSourceTrigger=PropertyChanged}"/>
     </Window.TaskbarItemInfo>
+    <Window.Resources>
+        <properties:Settings x:Key="Settings" />
+    </Window.Resources>
     <Grid>
         <Grid.ContextMenu>
             <ContextMenu>
@@ -21,8 +24,31 @@
                 <MenuItem Header="Exit" Click="MenuItem_Exit"/>
             </ContextMenu>
         </Grid.ContextMenu>
-        <tb:TaskbarIcon x:Name="myTaskbarIcon" IconSource="Icons\Inactive.ico" ToolTipText="tooltip_string" Visibility="{Binding taskIconToggle}" />
-        <TextBlock x:Name="TextBlock1" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="100" Width="150" Foreground="Lime"/>
-        <Button Content="Try again" HorizontalAlignment="Left" Margin="122,10,0,0" VerticalAlignment="Top" Width="114" Height="39" Visibility="{DynamicResource Try_visibility}" Click="tryBtn_Click"/>
+        <tb:TaskbarIcon x:Name="myTaskbarIcon"
+                        x:FieldModifier="public"
+                        IconSource="Icons\Inactive.ico"
+                        ToolTipText="tooltip_string"
+                        Visibility="{DynamicResource isVisible}"/>
+        <TextBlock x:Name="TextBlock1"
+                   HorizontalAlignment="Center"
+                   TextWrapping="Wrap"
+                   Text="Connecting..."
+                   TextAlignment="Center"
+                   VerticalAlignment="Top"
+                   Height="90" Width="140"
+                   Foreground="{Binding textColor}"
+                   Margin="5"
+                   Panel.ZIndex="1"/>
+        <!--<Button Content="Try again" HorizontalAlignment="Left" Margin="122,10,0,0" VerticalAlignment="Top" Width="114" Height="39" Visibility="{DynamicResource Try_visibility}" Click="tryBtn_Click"/>-->
+        <Border BorderThickness="3" CornerRadius="3"
+                Margin="0"
+                Background="{Binding backgroundColor}">
+            <Border.BorderBrush>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="{Binding gradientTop}" Offset="0"/>
+                    <GradientStop Color="{Binding gradientBot}" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+        </Border>
     </Grid>
 </Window>
