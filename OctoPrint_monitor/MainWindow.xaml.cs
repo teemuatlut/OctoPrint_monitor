@@ -111,7 +111,7 @@ namespace OctoPrint_monitor
             {
                 printer_data = null;
                 job_data = null;
-                System.Windows.Forms.MessageBox.Show("Error:\n" + ex);
+                //System.Windows.Forms.MessageBox.Show("Error:\n" + ex); // Worker complete event handles errors
                 return;
                 //throw;
             }
@@ -158,7 +158,7 @@ namespace OctoPrint_monitor
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show("Error:" + ex);
+                System.Windows.Forms.MessageBox.Show("E01:" + ex);
             }
         }
         void update_screen()

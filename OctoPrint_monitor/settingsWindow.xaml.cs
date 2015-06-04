@@ -49,8 +49,6 @@ namespace OctoPrint_monitor
 
         public void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            try
-            {
                 //App.settings.API_key = APIBox.Text;
                 //App.settings.OctoPrintIP = IPBox.Text;
                 //App.settings.updateInterval = Convert.ToInt32( UpdateBox.Text);
@@ -58,23 +56,24 @@ namespace OctoPrint_monitor
                 //MainWindow.dataTimer.Interval = new TimeSpan(0, 0, App.settings.updateInterval);
                 //MainWindow.dataTimer.Start();
                 //Hide();
-                if (APIBox.Text != "Please fill" && IPBox.Text != "Please fill")
-                {
-                    Properties.Settings.Default.API_key = APIBox.Text;
-                    Properties.Settings.Default.IP = IPBox.Text;
-                    MainWindow.dataTimer.Start();
-                    if (MainWindow.worker.IsBusy.Equals(false))
-                        MainWindow.worker.RunWorkerAsync();
-                }
-                Properties.Settings.Default.updateInterval = Convert.ToInt32(UpdateBox.Text);
-                //MainWindow.saveSettings(Properties.Settings.Default.settingsFile);
+            if (APIBox.Text != "Please fill" && IPBox.Text != "Please fill")
+            {
+                Properties.Settings.Default.API_key = APIBox.Text;
+                Properties.Settings.Default.IP = IPBox.Text;
+                MainWindow.dataTimer.Start();
+                if (MainWindow.worker.IsBusy.Equals(false))
+                    MainWindow.worker.RunWorkerAsync();
+            }
+            Properties.Settings.Default.updateInterval = Convert.ToInt32(UpdateBox.Text);
+            MainWindow.dataTimer.Interval = new TimeSpan(0, 0, Properties.Settings.Default.updateInterval);
+            try
+            {
                 Properties.Settings.Default.Save();
-                MainWindow.dataTimer.Interval = new TimeSpan(0, 0, Properties.Settings.Default.updateInterval);
                 Hide();
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show("Error trying to save settings");
+                System.Windows.Forms.MessageBox.Show("E07: Error trying to save settings");
                 Show();
             }
         }
@@ -83,12 +82,10 @@ namespace OctoPrint_monitor
         {
             if ((APIBox.Text.Length > 10) || (IPBox.Text.Length > 10))
             {
+                Properties.Settings.Default.API_key = APIBox.Text;
+                Properties.Settings.Default.IP = IPBox.Text;
                 try
                 {
-                    //App.settings.API_key = APIBox.Text;
-                    //App.settings.OctoPrintIP = IPBox.Text;
-                    Properties.Settings.Default.API_key = APIBox.Text;
-                    Properties.Settings.Default.IP = IPBox.Text;
                     MainWindow.getVersion();
                     this.Resources["OK_icon_visibility"] = Visibility.Visible;
                     //System.Windows.Media.Brush newBrush = new System.Windows.Media.Brush;
@@ -98,12 +95,12 @@ namespace OctoPrint_monitor
                 catch (Exception ex)
                 {
                     this.Resources["OK_icon_visibility"] = Visibility.Hidden;
-                    System.Windows.Forms.MessageBox.Show("Couldn't connect to OctoPrint.\nMake sure your IP setting was corrent\nand you have connected to your printer in OctoPrint.");
+                    System.Windows.Forms.MessageBox.Show("E02: Couldn't connect to OctoPrint.\nMake sure your IP setting was corrent\nand you have connected to your printer in OctoPrint.");
                 }
             }
             else
             {
-                System.Windows.Forms.MessageBox.Show("Fill in the IP and API");
+                System.Windows.Forms.MessageBox.Show("E08: Fill in the IP address and API-key");
             }
         }
 
@@ -170,7 +167,7 @@ namespace OctoPrint_monitor
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show("Invalid color value");
+                System.Windows.Forms.MessageBox.Show("E03: Invalid color value");
             }
         }
 
@@ -183,7 +180,7 @@ namespace OctoPrint_monitor
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show("Invalid color value");
+                System.Windows.Forms.MessageBox.Show("E04: Invalid color value");
             }
         }
 
@@ -195,7 +192,7 @@ namespace OctoPrint_monitor
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show("Invalid color value");
+                System.Windows.Forms.MessageBox.Show("E05: Invalid color value");
             }
         }
 
@@ -207,7 +204,7 @@ namespace OctoPrint_monitor
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show("Invalid color value");
+                System.Windows.Forms.MessageBox.Show("E06: Invalid color value");
             }
         }
 
