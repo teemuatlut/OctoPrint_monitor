@@ -41,6 +41,9 @@ namespace OctoPrint_monitor
             borderColorTop.Text = Properties.Settings.Default.gradientTop.ToString();
             borderColorBot.Text = Properties.Settings.Default.gradientBot.ToString();
 
+            MainWindow.dataTimer.Stop(); // Stop the timer when settings window is opened in case the IP has changed.
+            MainWindow.worker.CancelAsync(); // And stop the update too.
+
             //testLabel.Content = Properties.Settings.Default.backgroundColor.ToString();
         }
 
@@ -67,7 +70,6 @@ namespace OctoPrint_monitor
                 //MainWindow.saveSettings(Properties.Settings.Default.settingsFile);
                 Properties.Settings.Default.Save();
                 MainWindow.dataTimer.Interval = new TimeSpan(0, 0, Properties.Settings.Default.updateInterval);
-                //MainWindow.dataTimer.Start();
                 Hide();
             }
             catch (Exception ex)
