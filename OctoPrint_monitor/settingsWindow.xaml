@@ -13,7 +13,7 @@
     <Window.Resources>
         <sys:String x:Key="APIbox_key">string1</sys:String>
         <sys:String x:Key="IPbox_key">string2</sys:String>
-        <Visibility x:Key="OK_icon_visibility">Visible</Visibility>
+        <Visibility x:Key="OK_icon_visibility">Hidden</Visibility>
     </Window.Resources>
     <Grid x:Name="GridMain">
         <Button x:Name="connBtn"
