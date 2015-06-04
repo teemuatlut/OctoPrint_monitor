@@ -42,7 +42,6 @@ namespace OctoPrint_monitor
             borderColorBot.Text = Properties.Settings.Default.gradientBot.ToString();
 
             MainWindow.dataTimer.Stop(); // Stop the timer when settings window is opened in case the IP has changed.
-            MainWindow.worker.CancelAsync(); // And stop the update too.
 
             //testLabel.Content = Properties.Settings.Default.backgroundColor.ToString();
         }
