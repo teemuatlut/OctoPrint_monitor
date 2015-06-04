@@ -33,17 +33,18 @@
                  Height="23"
                  Margin="28,21,87,10"
                  TextWrapping="Wrap"
-                 Text="{DynamicResource IPbox_key}"
+                 Text="Shouldn't see this"
                  VerticalAlignment="Top" Width="253"
                  MouseUp="IPBox_MouseUp"
-                 ToolTip="Format: ip_address:port"/>
+                 ToolTip="Format: ip_address:port"
+                 TextChanged="IPBox_TextChanged"/>
         <TextBox x:Name="APIBox"
                  TabIndex="20"
                  HorizontalAlignment="Left"
                  Height="23" Width="253"
                  Margin="28,49,87,0"
                  TextWrapping="Wrap"
-                 Text="{DynamicResource APIbox_key}"
+                 Text="Shouldn't see this"
                  VerticalAlignment="Top"
                  ToolTip="From OctoPrint settings"/>
         <Image x:Name="ConnOKico"
@@ -200,5 +201,15 @@
                   VerticalAlignment="Top"
                   Checked="iconToggle_Checked"
                   Unchecked="iconToggle_Unchecked"/>
+        <TextBlock x:Name="myUriBlock"
+                   HorizontalAlignment="Left"
+                   TextWrapping="Wrap"
+                   VerticalAlignment="Top">
+            <Hyperlink  Name="hlRules" 
+                        NavigateUri="Rules" 
+                        RequestNavigate="Navigate_url">
+                <TextBlock Text="{DynamicResource IPbox_key}"/>
+            </Hyperlink>
+        </TextBlock>
     </Grid>
 </Window>

@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Shell;
 
+
 namespace OctoPrint_monitor
 {
 
@@ -231,6 +232,16 @@ namespace OctoPrint_monitor
             //MainWindow.myTaskbarIcon.Visibility = System.Windows.Visibility.Hidden;
             //MainWindow.my
             App.Current.Resources["isVisible"] = System.Windows.Visibility.Hidden;
+        }
+
+        private void Navigate_url(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        {
+            MainWindow.openWebPage();
+        }
+
+        private void IPBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            this.Resources["IPbox_key"] = IPBox.Text;
         }
 
         //private void Button_Click(object sender, RoutedEventArgs e)

@@ -68,6 +68,17 @@ namespace OctoPrint_monitor
             return reader.ReadToEnd() as string;
         }
 
+        public static void openWebPage()
+        {
+            if (!(Properties.Settings.Default.IP == "Please fill"))
+                System.Diagnostics.Process.Start("http://" + Properties.Settings.Default.IP);
+            else
+                System.Windows.Forms.MessageBox.Show("You need to fill in the IP address first!",
+                    "test",
+                    System.Windows.Forms.MessageBoxButtons.OK,
+                    System.Windows.Forms.MessageBoxIcon.Stop);
+        }
+
         //public static void saveSettings(string fileName)
         //{
         //    FileStream fs = new FileStream(fileName, FileMode.Create);

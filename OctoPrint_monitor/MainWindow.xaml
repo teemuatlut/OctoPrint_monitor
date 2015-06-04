@@ -20,6 +20,7 @@
     <Grid>
         <Grid.ContextMenu>
             <ContextMenu>
+                <MenuItem Header="Open webpage" Click="MenuItem_Click_1"/>
                 <MenuItem Header="Settings..." Click="MenuItem_Click"/>
                 <MenuItem Header="Exit" Click="MenuItem_Exit"/>
             </ContextMenu>
