@@ -164,7 +164,7 @@ namespace OctoPrint_monitor
         void update_screen()
         {
             StringBuilder myBuilder = new StringBuilder();
-            StringBuilder myBuilder2 = new StringBuilder();
+            StringBuilder barInfo = new StringBuilder();
             //if (1 == 1) myBuilder.AppendFormat("Printer state: {0}", printer_data.state.stateString);
             myBuilder.Append("Printer state: ");
             myBuilder.Append(printer_data.state.stateString);
@@ -183,18 +183,18 @@ namespace OctoPrint_monitor
                 ETA = ETA.AddSeconds(ETAvalue);
                 myBuilder.AppendLine().AppendFormat("ETA: {0}h {1}m", ETA.Hour.ToString(), ETA.Minute.ToString());
 
-                myBuilder2.AppendFormat("{0:0}% | ", job_data.progress.completion);
+                barInfo.AppendFormat("{0:0}% | {1}h {2}m", job_data.progress.completion, ETA.Hour.ToString(), ETA.Minute.ToString());
             }
             else
             {
                 TaskbarItemInfo.ProgressValue = 0;
             }
-            myBuilder2.AppendFormat("{0:0.0} | {1:0.0}",
-                printer_data.temperature.temps.tool0.actual,
-                printer_data.temperature.temps.bed.actual);
+            //myBuilder2.AppendFormat("{0:0.0} | {1:0.0}",
+            //    printer_data.temperature.temps.tool0.actual,
+            //    printer_data.temperature.temps.bed.actual);
 
             TextBlock1.Text = myBuilder.ToString();
-            window_frame.Title = myBuilder2.ToString();
+            window_frame.Title = barInfo.ToString();
 
         }
         private void MenuItem_Click(object sender, RoutedEventArgs e)
