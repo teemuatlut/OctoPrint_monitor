@@ -176,6 +176,13 @@ namespace OctoPrint_monitor
             {
                 myBuilder.AppendLine().AppendFormat("Job progress: {0:0}%", job_data.progress.completion);
                 TaskbarItemInfo.ProgressValue = job_data.progress.completion / 100;
+
+                previousPrintTime = job_data.progress.printTime ?? default(int);
+                var ETAvalue = job_data.progress.printTimeLeft ?? default(int);
+                var ETA = new DateTime(0);
+                ETA = ETA.AddSeconds(ETAvalue);
+                myBuilder.AppendLine().AppendFormat("ETA: {0}h {1}m", ETA.Hour.ToString(), ETA.Minute.ToString());
+
                 myBuilder2.AppendFormat("{0:0}% | ", job_data.progress.completion);
             }
             else
