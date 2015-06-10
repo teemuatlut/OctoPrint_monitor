@@ -178,6 +178,10 @@ namespace OctoPrint_monitor
                 TaskbarItemInfo.ProgressValue = job_data.progress.completion / 100;
                 myBuilder2.AppendFormat("{0:0}% | ", job_data.progress.completion);
             }
+            else
+            {
+                TaskbarItemInfo.ProgressValue = 0;
+            }
             myBuilder2.AppendFormat("{0:0.0} | {1:0.0}",
                 printer_data.temperature.temps.tool0.actual,
                 printer_data.temperature.temps.bed.actual);
