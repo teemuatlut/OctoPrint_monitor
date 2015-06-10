@@ -107,58 +107,35 @@ namespace OctoPrint_monitor
                 printer_data = getPrinter();
                 job_data = (printer_data.state.flags.printing || printer_data.state.flags.paused) ? (getJob()) : null;
             }
-            catch (Exception ex)
+            catch (WebException ex)
             {
                 printer_data = null;
                 job_data = null;
-                //System.Windows.Forms.MessageBox.Show("Error:\n" + ex); // Worker complete event handles errors
-                return;
-                //throw;
+                throw new WebException();
             }
         }
 
         void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            try
+            if (e.Error != null)
             {
-                update_screen();
-                if (job_data != null)
+                if (e.Error.GetType().ToString() == "System.Net.WebException")
                 {
-                    previousPrintTime = job_data.progress.printTime ?? default(int);
+                    //System.Windows.Forms.MessageBox.Show("myErrorType: "+e.Error.GetType().ToString());
+                    this.TextBlock1.Text = "Could not connect to printer.\n";
                 }
-                if (printerPreviousState.Equals(true)
-                    && printer_data.state.flags.printing.Equals(false)
-                    && printer_data.state.flags.paused.Equals(false)
-                    && printer_data.state.flags.error.Equals(false)
-                    && Properties.Settings.Default.taskIconToggle.Equals(true))
+            }
+            else
+            {
+                try
                 {
-                    //double? _int = previousPrintTime;
-                    var value = new DateTime(0);
-                    value = value.AddSeconds(previousPrintTime);
-                    //Console.WriteLine("Print time was "
-                    //    + value.Hour.ToString() + "h "
-                    //    + value.Minute.ToString() + "s");
-
-                    myTaskbarIcon.ShowBalloonTip("Print finished!",
-                        "Elapsed time: "
-                        + value.Hour.ToString() + "h "
-                        + value.Minute.ToString() + "min",
-                        BalloonIcon.Info);
-                    //System.Windows.Forms.MessageBox.Show("Print finished!");
+                    update_screen();
+                    showBalloon();
                 }
-                printerPreviousState = printer_data.state.flags.printing;
-            }
-            catch (WebException wex)
-            {
-                //dataTimer.Stop();
-                this.TextBlock1.Text = "Could not connect to printer.\n";
-                //    + "Ip setting: " + Properties.Settings.Default.IP + "\n"
-                //    + "API-key: " + Properties.Settings.Default.API_key;
-                //System.Windows.Forms.MessageBox.Show("Error:\n" + ex);
-            }
-            catch (Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show("E01:" + ex);
+                catch (Exception ex)
+                {
+                    System.Windows.Forms.MessageBox.Show("E01:" + ex);
+                }
             }
         }
         void update_screen()
@@ -196,6 +173,34 @@ namespace OctoPrint_monitor
             TextBlock1.Text = myBuilder.ToString();
             window_frame.Title = barInfo.ToString();
 
+        }
+        void showBalloon()
+        {
+                if (job_data != null)
+                {
+                    previousPrintTime = job_data.progress.printTime ?? default(int);
+                }
+                if (printerPreviousState.Equals(true)
+                    && printer_data.state.flags.printing.Equals(false)
+                    && printer_data.state.flags.paused.Equals(false)
+                    && printer_data.state.flags.error.Equals(false)
+                    && Properties.Settings.Default.taskIconToggle.Equals(true))
+                {
+                    //double? _int = previousPrintTime;
+                    var value = new DateTime(0);
+                    value = value.AddSeconds(previousPrintTime);
+                    //Console.WriteLine("Print time was "
+                    //    + value.Hour.ToString() + "h "
+                    //    + value.Minute.ToString() + "s");
+
+                    myTaskbarIcon.ShowBalloonTip("Print finished!",
+                        "Elapsed time: "
+                        + value.Hour.ToString() + "h "
+                        + value.Minute.ToString() + "min",
+                        BalloonIcon.Info);
+                    //System.Windows.Forms.MessageBox.Show("Print finished!");
+                }
+                printerPreviousState = printer_data.state.flags.printing;
         }
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
