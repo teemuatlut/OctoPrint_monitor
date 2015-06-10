@@ -161,10 +161,15 @@ namespace OctoPrint_monitor
                 myBuilder.AppendLine().AppendFormat("ETA: {0}h {1}m", ETA.Hour.ToString(), ETA.Minute.ToString());
 
                 barInfo.AppendFormat("{0:0}% | {1}h {2}m", job_data.progress.completion, ETA.Hour.ToString(), ETA.Minute.ToString());
+
+                this.Resources["notifyPopupText"] = string.Format("{0:0}% | {1}h {2}m", job_data.progress.completion, ETA.Hour.ToString(), ETA.Minute.ToString());
+
+                myTaskbarIcon.Icon = new System.Drawing.Icon("Icons/Error.ico");
             }
             else
             {
                 TaskbarItemInfo.ProgressValue = 0;
+                myTaskbarIcon.Icon = new System.Drawing.Icon("Icons/Inactive.ico");
             }
             //myBuilder2.AppendFormat("{0:0.0} | {1:0.0}",
             //    printer_data.temperature.temps.tool0.actual,
