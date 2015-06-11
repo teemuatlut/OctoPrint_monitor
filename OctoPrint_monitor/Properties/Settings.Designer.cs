@@ -25,7 +25,7 @@ namespace OctoPrint_monitor.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("v0.1-alpha")]
+        [global::System.Configuration.DefaultSettingValueAttribute("v0.3-beta")]
         public string version {
             get {
                 return ((string)(this["version"]));

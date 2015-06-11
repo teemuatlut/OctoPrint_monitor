@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="version" Type="System.String" Scope="User">
-      <Value Profile="(Default)">v0.1-alpha</Value>
+      <Value Profile="(Default)">v0.3-beta</Value>
     </Setting>
     <Setting Name="API_key" Type="System.String" Scope="User">
       <Value Profile="(Default)">Please fill</Value>
