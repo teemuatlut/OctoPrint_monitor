@@ -160,12 +160,12 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icons\Error.ico">
+    <None Include="Icons\Error.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Icons\Inactive.ico">
+    </None>
+    <None Include="Icons\Inactive.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\Oxygen-Icons.org-Oxygen-Actions-dialog-ok-apply.ico">
