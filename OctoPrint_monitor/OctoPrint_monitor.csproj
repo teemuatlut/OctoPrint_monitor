@@ -160,15 +160,17 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Icons\Error.ico">
+    <Resource Include="Icons\Error.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Icons\Inactive.ico">
+    </Resource>
+    <Resource Include="Icons\Inactive.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icons\Oxygen-Icons.org-Oxygen-Actions-dialog-ok-apply.ico" />
+    <Resource Include="Icons\Oxygen-Icons.org-Oxygen-Actions-dialog-ok-apply.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="FodyWeavers.xml" />

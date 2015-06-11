@@ -5,203 +5,24 @@
         xmlns:win="clr-namespace:System.Windows;assembly=System.Windows"
         WindowStyle="ToolWindow"
         Title="Settings save when closing"
-        Height="270" Width="380"
+        Height="250" Width="380"
         Closing="Window_Closing"
         Topmost="True"
         WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize">
     <Window.Resources>
-        <sys:String x:Key="APIbox_key">string1</sys:String>
-        <sys:String x:Key="IPbox_key">string2</sys:String>
+        <sys:String x:Key="APIbox_key">APIbox_key</sys:String>
+        <sys:String x:Key="IPbox_key">IPbox_key</sys:String>
         <Visibility x:Key="OK_icon_visibility">Hidden</Visibility>
     </Window.Resources>
     <Grid x:Name="GridMain">
-        <Button x:Name="connBtn"
-                HorizontalAlignment="Right"
-                Margin="215,19,10,20"
-                VerticalAlignment="Top"
-                Width="67" Height="53"
-                Click="connBtn_Click"
-                TabIndex="21">
-            <TextBlock TextAlignment="Center">
-                Test<LineBreak/>connection
-            </TextBlock>
-        </Button>
-        <TextBox x:Name="IPBox"
-                 TabIndex="10"
-                 HorizontalAlignment="Left"
-                 Height="23"
-                 Margin="28,21,87,10"
-                 TextWrapping="Wrap"
-                 Text="Shouldn't see this"
-                 VerticalAlignment="Top" Width="253"
-                 MouseUp="IPBox_MouseUp"
-                 ToolTip="Format: ip_address:port"
-                 TextChanged="IPBox_TextChanged"/>
-        <TextBox x:Name="APIBox"
-                 TabIndex="20"
-                 HorizontalAlignment="Left"
-                 Height="23" Width="253"
-                 Margin="28,49,87,0"
-                 TextWrapping="Wrap"
-                 Text="Shouldn't see this"
-                 VerticalAlignment="Top"
-                 ToolTip="From OctoPrint settings"/>
-        <Image x:Name="ConnOKico"
-               HorizontalAlignment="Left"
-               Height="22" Width="24"
-               Margin="297,22,0,0"
-               VerticalAlignment="Top"
-               Source="Icons/Oxygen-Icons.org-Oxygen-Actions-dialog-ok-apply.ico"
-               Visibility="{DynamicResource OK_icon_visibility}"/>
-        <Label Content="IP"
-               HorizontalAlignment="Left"
-               Margin="8,19,0,0"
-               VerticalAlignment="Top"/>
-        <Label Content="API"
-               HorizontalAlignment="Left"
-               Margin="0,46,0,0"
-               VerticalAlignment="Top"/>
-        <Label Content="Update interval"
-               HorizontalAlignment="Left"
-               Margin="177,83,0,0"
-               VerticalAlignment="Top"
-               HorizontalContentAlignment="Right"
-               Width="103"/>
-        <TextBox x:Name="UpdateBox"
-                 TabIndex="70"
-                 HorizontalAlignment="Right"
-                 Height="22"
-                 Margin="203,84,10,0"
-                 TextWrapping="Wrap"
-                 Text="TextBox"
-                 VerticalAlignment="Top"
-                 Width="79"/>
-        <CheckBox x:Name="barCheck"
-                  TabIndex="30"
-                  Content="Progress bar"
-                  HorizontalAlignment="Left"
-                  Margin="10,90,0,0"
-                  VerticalAlignment="Top"
-                  Checked="CheckBox_Checked"
-                  Unchecked="CheckBox_Unchecked"/>
-        <CheckBox x:Name="onTopBox"
-                  TabIndex="50"
-                  Content="Always on top"
-                  HorizontalAlignment="Left"
-                  Margin="10,153,0,0"
-                  VerticalAlignment="Top"
-                  Checked="onTopBox_Checked"
-                  Unchecked="onTopBox_Unchecked"/>
-        <!--<TextBox x:Name="opacityValue" TabIndex="6" HorizontalAlignment="Left" Height="22" Margin="203,84,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="79" TextChanged="opacityValue_TextChanged"/>
-        <Label Content="Opacity" HorizontalAlignment="Left" Margin="147,82,0,0" VerticalAlignment="Top"/>-->
-        <CheckBox x:Name="taskbarToggle"
-                  TabIndex="40"
-                  Content="Taskbar"
-                  HorizontalAlignment="Left" 
-                  Margin="10,111,0,0"
-                  VerticalAlignment="Top"
-                  Checked="CheckBox_Checked_1"
-                  Unchecked="taskbarToggle_Unchecked"/>
-        <TextBox x:Name="colorHexBox"
-                 TabIndex="80"
-                 HorizontalAlignment="Right"
-                 Height="23"
-                 Margin="203,111,10,0"
-                 TextWrapping="Wrap"
-                 Text="TextBox"
-                 VerticalAlignment="Top"
-                 Width="79"
-                 LostFocus="background_LostFocus">
-            <TextBox.ToolTip>
-                <TextBlock>
-                    Hex or string: <LineBreak /> 
-                    #0f0 <LineBreak /> 
-                    #00FF00 <LineBreak /> 
-                    #0000FF00 <LineBreak /> 
-                    White <LineBreak /> 
-                    Purple
-                </TextBlock>
-            </TextBox.ToolTip>
-        </TextBox>
-        <Label Content="Text color"
-               HorizontalAlignment="Left"
-               Margin="177,137,0,0"
-               VerticalAlignment="Top"
-               Width="103"
-               HorizontalContentAlignment="Right"/>
-        <TextBox x:Name="textColorBox"
-                 TabIndex="90"
-                 HorizontalAlignment="Right"
-                 Height="22" Width="79"
-                 Margin="203,139,10,0"
-                 TextWrapping="Wrap"
-                 Text="TextBox"
-                 VerticalAlignment="Top"
-                 LostFocus="textColorBox_LostFocus">
-            <TextBox.ToolTip>
-                <TextBlock>
-                    Hex or string: <LineBreak /> 
-                    #0f0 <LineBreak /> 
-                    #00FF00 <LineBreak /> 
-                    #0000FF00 <LineBreak /> 
-                    White <LineBreak /> 
-                    Purple
-                </TextBlock>
-            </TextBox.ToolTip>
-        </TextBox>
-        <Label Content="Background color"
-               HorizontalAlignment="Left"
-               Margin="177,109,0,0"
-               VerticalAlignment="Top"
-               HorizontalContentAlignment="Right"/>
-        <CheckBox x:Name="targetTempCheck"
-                  Content="Show target temp"
-                  HorizontalAlignment="Left"
-                  Margin="10,174,0,0"
-                  VerticalAlignment="Top"
-                  Checked="targetTempCheck_Checked"
-                  Unchecked="targetTempCheck_Unchecked"
-                  TabIndex="55"/>
-        <TextBox x:Name="borderColorBot"
-                 HorizontalAlignment="Right"
-                 Height="24" Width="79"
-                 Margin="0,196,10,0"
-                 TextWrapping="Wrap"
-                 Text="TextBox"
-                 VerticalAlignment="Top"
-                 LostFocus="borderColorBot_LostFocus"
-                 TabIndex="96"/>
-        <Label Content="Border bottom color"
-               HorizontalAlignment="Left"
-               Margin="160,194,0,0"
-               VerticalAlignment="Top"
-               HorizontalContentAlignment="Right"
-               Width="120" />
-        <TextBox x:Name="borderColorTop"
-                 HorizontalAlignment="Right"
-                 Height="24" Width="79"
-                 Margin="0,168,10,0"
-                 TextWrapping="Wrap"
-                 Text="TextBox"
-                 VerticalAlignment="Top"
-                 LostFocus="borderColorTop_LostFocus"
-                 TabIndex="94"/>
-        <Label Content="Border top color"
-               HorizontalAlignment="Left"
-               Margin="177,166,0,0"
-               VerticalAlignment="Top"
-               Width="103"
-               HorizontalContentAlignment="Right"/>
-        <CheckBox x:Name="iconToggle"
-                  Content="Notification icon"
-                  TabIndex="45"
-                  HorizontalAlignment="Left"
-                  Margin="10,132,0,0"
-                  VerticalAlignment="Top"
-                  Checked="iconToggle_Checked"
-                  Unchecked="iconToggle_Unchecked"/>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+      </Grid.RowDefinitions>
         <TextBlock x:Name="myUriBlock"
+                   Grid.Row="0"
                    HorizontalAlignment="Left"
                    TextWrapping="Wrap"
                    VerticalAlignment="Top">
@@ -211,5 +32,158 @@
                 <TextBlock Text="{DynamicResource IPbox_key}"/>
             </Hyperlink>
         </TextBlock>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="80"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+            </Grid.RowDefinitions>
+            <Label Content="IP"
+               Grid.Row="0" Grid.Column="0"
+               HorizontalAlignment="Right"
+               VerticalAlignment="Center"/>
+            <Label Content="API"
+               Grid.Row="1" Grid.Column="0"
+               HorizontalAlignment="Right"
+               VerticalAlignment="Center"/>
+            <TextBox x:Name="IPBox"
+                 Grid.Column="1" Grid.Row="0"
+                 TabIndex="10"
+                 Margin="5"
+                 TextWrapping="Wrap"
+                 Text="Shouldn't see this"
+                 MouseUp="IPBox_MouseUp"
+                 ToolTip="Format: ip_address:port"
+                 TextChanged="IPBox_TextChanged"/>
+            <TextBox x:Name="APIBox"
+                 Grid.Column="1" Grid.Row="1"
+                 TabIndex="20"
+                 Margin="5"
+                 TextWrapping="Wrap"
+                 Text="Shouldn't see this"
+                 ToolTip="From OctoPrint settings"/>
+            <Button x:Name="connBtn"
+                Grid.Row="0" Grid.Column="3" Grid.RowSpan="2"
+                HorizontalAlignment="Stretch"
+                Margin="5"
+                VerticalAlignment="Stretch"
+                Click="connBtn_Click"
+                TabIndex="21">
+                <TextBlock TextAlignment="Center" TextWrapping="Wrap">
+                    Test connection
+                </TextBlock>
+            </Button>
+            <Image x:Name="ConnOKico"
+               Grid.Row="0" Grid.Column="2"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Top"
+               Height="23" Width="23"
+               Margin="8,6,0,0"
+               Source="Icons/Oxygen-Icons.org-Oxygen-Actions-dialog-ok-apply.ico"
+               Visibility="{DynamicResource OK_icon_visibility}"/>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Margin="5,0,0,0">
+                <CheckBox x:Name="barCheck"
+                          TabIndex="30"
+                          Margin="0,5,0,0"
+                          Content="Progress bar"
+                          Checked="CheckBox_Checked"
+                          Unchecked="CheckBox_Unchecked"/>
+                <CheckBox x:Name="taskbarToggle"
+                          TabIndex="40"
+                          Margin="0,5,0,0"
+                          Content="Taskbar"
+                          Checked="CheckBox_Checked_1"
+                          Unchecked="taskbarToggle_Unchecked"/>
+                <CheckBox x:Name="iconToggle"
+                          Content="Notification icon"
+                          TabIndex="45"
+                          Margin="0,5,0,0"
+                          Checked="iconToggle_Checked"
+                          Unchecked="iconToggle_Unchecked"/>
+                <CheckBox x:Name="onTopBox"
+                          TabIndex="50"
+                          Margin="0,5,0,0"
+                          Content="Always on top"
+                          Checked="onTopBox_Checked"
+                          Unchecked="onTopBox_Unchecked"/>
+                <CheckBox x:Name="targetTempCheck"
+                          Content="Show target temp"
+                          Checked="targetTempCheck_Checked"
+                          Unchecked="targetTempCheck_Unchecked"
+                          TabIndex="55"
+                          Margin="0,5,0,0"/>
+            </StackPanel>
+            <StackPanel Grid.Column="1">
+                <Label Content="Update interval"
+                       HorizontalContentAlignment="Right"/>
+                <Label Content="Text color"
+                       HorizontalContentAlignment="Right"/>
+                <Label Content="Background color"
+                       HorizontalContentAlignment="Right"/>
+                <Label Content="Border bottom color"
+                       HorizontalContentAlignment="Right"/>
+                <Label Content="Border top color"
+                       HorizontalContentAlignment="Right"/>
+            </StackPanel>
+            <StackPanel Grid.Column="2" Margin="0,0,5,0">
+                <TextBox x:Name="UpdateBox"
+                         TabIndex="70"
+                         Margin="0,2"
+                         Text="TextBox"/>
+                <TextBox x:Name="colorHexBox"
+                         TabIndex="80"
+                         Margin="0,2"
+                         Text="TextBox"
+                         LostFocus="background_LostFocus">
+                    <TextBox.ToolTip>
+                        <TextBlock>
+                            Hex or string: <LineBreak /> 
+                            #0f0 <LineBreak /> 
+                            #00FF00 <LineBreak /> 
+                            #0000FF00 <LineBreak /> 
+                            White <LineBreak /> 
+                            Purple
+                        </TextBlock>
+                    </TextBox.ToolTip>
+                </TextBox>
+                <TextBox x:Name="textColorBox"
+                         TabIndex="90"
+                         Margin="0,2"
+                         Text="TextBox"
+                         LostFocus="textColorBox_LostFocus">
+                    <TextBox.ToolTip>
+                        <TextBlock>
+                            Hex or string: <LineBreak /> 
+                            #0f0 <LineBreak /> 
+                            #00FF00 <LineBreak /> 
+                            #0000FF00 <LineBreak /> 
+                            White <LineBreak /> 
+                            Purple
+                        </TextBlock>
+                    </TextBox.ToolTip>
+                </TextBox>
+                <TextBox x:Name="borderColorBot"
+                         Margin="0,2"
+                         Text="TextBox"
+                         LostFocus="borderColorBot_LostFocus"
+                         TabIndex="96"/>
+                <TextBox x:Name="borderColorTop"
+                         Margin="0,2"
+                         Text="TextBox"
+                         LostFocus="borderColorTop_LostFocus"
+                         TabIndex="94"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>
