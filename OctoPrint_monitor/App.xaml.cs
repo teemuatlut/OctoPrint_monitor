@@ -12,6 +12,9 @@ namespace OctoPrint_monitor
 {
     public partial class App : Application
     {
+        public static bool isPrinting = false;
 
+        //public static Uri redIconUri = new Uri("pack://application:,,,/Icons/Error.ico", UriKind.RelativeOrAbsolute);
+        //public static Uri grayIconUri = new Uri("pack://application:,,,/Icons/Inactive.ico", UriKind.RelativeOrAbsolute);
     }
 }
