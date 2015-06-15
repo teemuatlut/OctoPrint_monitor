@@ -86,7 +86,7 @@ namespace OctoPrint_monitor
     public class cJob
     {
         public cFile file { get; set; }
-        public double estimatedPrintTime { get; set; }
+        public double? estimatedPrintTime { get; set; }
         public cFilament filament { get; set; }
     }
     public class cProgress

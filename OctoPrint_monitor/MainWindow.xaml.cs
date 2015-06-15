@@ -121,6 +121,10 @@ namespace OctoPrint_monitor
                     //System.Windows.Forms.MessageBox.Show("myErrorType: "+e.Error.GetType().ToString());
                     this.TextBlock1.Text = "Could not connect to printer.\n";
                 }
+                else
+                {
+                    System.Windows.Forms.MessageBox.Show("E10: "+e.Error.ToString());
+                }
             }
             else
             {
