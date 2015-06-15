@@ -34,22 +34,22 @@ namespace OctoPrint_monitor
         public static settingsWindow SettingWindow = new settingsWindow();
         static bool printerPreviousState = false;
         static int previousPrintTime = 0;
-        //public static TaskbarIcon myTaskbarIcon = new TaskbarIcon();
 
-        public static int i = 0;
+        public static Uri redIconUri = new Uri("pack://application:,,,/Icons/Error.ico", UriKind.RelativeOrAbsolute);
+        public static Uri grayIconUri = new Uri("pack://application:,,,/Icons/Inactive.ico", UriKind.RelativeOrAbsolute);
+        public static BitmapFrame redIcon = BitmapFrame.Create(redIconUri);
+        public static BitmapFrame grayIcon = BitmapFrame.Create(grayIconUri);
 
         public MainWindow()
         {
             InitializeComponent();
 
             TaskbarItemInfo.Description = Properties.Settings.Default.version;
-            //TaskbarItemInfo.ProgressValue = 0.5;
+
             TextBlock1.FontSize = 12;
 
             if (Properties.Settings.Default.taskIconToggle.Equals(true))
-                App.Current.Resources["isVisible"] = System.Windows.Visibility.Visible;
-            else
-                App.Current.Resources["isVisible"] = System.Windows.Visibility.Hidden;
+                App.Current.Resources["isVisibleGrayIcon"] = System.Windows.Visibility.Visible;
 
             initializeTicker();
             create_bgWorker();
@@ -74,23 +74,20 @@ namespace OctoPrint_monitor
 
         void dataTimer_Tick(object sender, EventArgs e)
         {
-            //window_frame.Title = i.ToString();
-            //if (i % 10 == 0 && worker.IsBusy.Equals(false))
             if(worker.IsBusy.Equals(false))
                 worker.RunWorkerAsync();
-            //i++;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             SettingWindow.Close();
             dataTimer.Stop();
-            myTaskbarIcon.Dispose();
+            myRedIcon.Dispose();
+            myGrayIcon.Dispose();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            //this.DataContext = App.settings;
             this.DataContext = Properties.Settings.Default;
         }
 
@@ -164,12 +161,28 @@ namespace OctoPrint_monitor
 
                 this.Resources["notifyPopupText"] = string.Format("{0:0}% | {1}h {2}m", job_data.progress.completion, ETA.Hour.ToString(), ETA.Minute.ToString());
 
-                myTaskbarIcon.Icon = new System.Drawing.Icon("Icons/Error.ico");
+                if (Properties.Settings.Default.taskIconToggle.Equals(true))
+                {
+                    Application.Current.Resources["isVisibleGrayIcon"] = Visibility.Hidden;
+                    Application.Current.Resources["isVisibleRedIcon"] = Visibility.Visible;
+                }
+
+                this.Icon = redIcon;
+
+                App.isPrinting = true;
             }
             else
             {
                 TaskbarItemInfo.ProgressValue = 0;
-                myTaskbarIcon.Icon = new System.Drawing.Icon("Icons/Inactive.ico");
+                //myTaskbarIcon.Icon = new System.Drawing.Icon("Icons/Inactive.ico");
+                barInfo.AppendFormat("[{0}]", printer_data.state.stateString);
+                if (Properties.Settings.Default.taskIconToggle.Equals(true))
+                {
+                    Application.Current.Resources["isVisibleRedIcon"] = Visibility.Hidden;
+                    Application.Current.Resources["isVisibleGrayIcon"] = Visibility.Visible;
+                }
+                this.Icon = grayIcon;
+                App.isPrinting = false;
             }
             //myBuilder2.AppendFormat("{0:0.0} | {1:0.0}",
             //    printer_data.temperature.temps.tool0.actual,
@@ -177,7 +190,6 @@ namespace OctoPrint_monitor
 
             TextBlock1.Text = myBuilder.ToString();
             window_frame.Title = barInfo.ToString();
-
         }
         void showBalloon()
         {
@@ -191,14 +203,10 @@ namespace OctoPrint_monitor
                     && printer_data.state.flags.error.Equals(false)
                     && Properties.Settings.Default.taskIconToggle.Equals(true))
                 {
-                    //double? _int = previousPrintTime;
                     var value = new DateTime(0);
                     value = value.AddSeconds(previousPrintTime);
-                    //Console.WriteLine("Print time was "
-                    //    + value.Hour.ToString() + "h "
-                    //    + value.Minute.ToString() + "s");
 
-                    myTaskbarIcon.ShowBalloonTip("Print finished!",
+                    myGrayIcon.ShowBalloonTip("Print finished!",
                         "Elapsed time: "
                         + value.Hour.ToString() + "h "
                         + value.Minute.ToString() + "min",

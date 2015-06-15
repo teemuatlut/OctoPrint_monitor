@@ -32,7 +32,6 @@ namespace OctoPrint_monitor
             UpdateBox.Text = Properties.Settings.Default.updateInterval.ToString();
             barCheck.IsChecked = (Properties.Settings.Default.visibleProgressbar == TaskbarItemProgressState.Error);
             onTopBox.IsChecked = (Properties.Settings.Default.AlwaysOnTop == true);
-            onTopBox.IsChecked = (Properties.Settings.Default.AlwaysOnTop == true);
             iconToggle.IsChecked = (Properties.Settings.Default.taskIconToggle == true);
             targetTempCheck.IsChecked = (Properties.Settings.Default.showTarget == true);
             //opacityValue.Text = (Properties.Settings.Default.OpacitySetting*100).ToString();
@@ -43,19 +42,10 @@ namespace OctoPrint_monitor
             borderColorBot.Text = Properties.Settings.Default.gradientBot.ToString();
 
             MainWindow.dataTimer.Stop(); // Stop the timer when settings window is opened in case the IP has changed.
-
-            //testLabel.Content = Properties.Settings.Default.backgroundColor.ToString();
         }
 
         public void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-                //App.settings.API_key = APIBox.Text;
-                //App.settings.OctoPrintIP = IPBox.Text;
-                //App.settings.updateInterval = Convert.ToInt32( UpdateBox.Text);
-                //MainWindow.saveSettings(App.settings.settingsFile);
-                //MainWindow.dataTimer.Interval = new TimeSpan(0, 0, App.settings.updateInterval);
-                //MainWindow.dataTimer.Start();
-                //Hide();
             if (APIBox.Text != "Please fill" && IPBox.Text != "Please fill")
             {
                 Properties.Settings.Default.API_key = APIBox.Text;
@@ -88,9 +78,6 @@ namespace OctoPrint_monitor
                 {
                     MainWindow.getVersion();
                     this.Resources["OK_icon_visibility"] = Visibility.Visible;
-                    //System.Windows.Media.Brush newBrush = new System.Windows.Media.Brush;
-                    //connBtn.BorderBrush = System.Windows.Media.Brush.Green;
-                    //connBtn.BorderBrush = "Green";
                 }
                 catch (Exception ex)
                 {
@@ -111,13 +98,11 @@ namespace OctoPrint_monitor
 
         public void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
-            //App.settings.visibleProgressbar = TaskbarItemProgressState.Normal;
             Properties.Settings.Default.visibleProgressbar = TaskbarItemProgressState.Error;
         }
 
         private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
-            //App.settings.visibleProgressbar = TaskbarItemProgressState.Error;
             Properties.Settings.Default.visibleProgressbar = TaskbarItemProgressState.None;
         }
 
@@ -130,21 +115,6 @@ namespace OctoPrint_monitor
         {
             Properties.Settings.Default.AlwaysOnTop = false;
         }
-
-        //private void opacityValue_TextChanged(object sender, TextChangedEventArgs e)
-        //{
-        //    if (opacityValue.IsFocused)
-        //    {
-        //        try
-        //        {
-        //            int value = Convert.ToInt16(opacityValue.Text);
-        //            if (value > 100) value = 100;
-        //            if (value < 10) value = 10;
-        //            Properties.Settings.Default.OpacitySetting = (double)value / 100;
-        //        }
-        //        catch (Exception ex) { }
-        //    }
-        //}
 
         private void CheckBox_Checked_1(object sender, RoutedEventArgs e)
         {
@@ -163,7 +133,6 @@ namespace OctoPrint_monitor
                 Color colorHexAsColor = (Color)ColorConverter.ConvertFromString(colorHexBox.Text);
                 SolidColorBrush myBrush = new SolidColorBrush(colorHexAsColor);
                 Properties.Settings.Default.backgroundColor = myBrush;
-                //colorLabel.Content = Properties.Settings.Default.backgroundColor.ToString();
             }
             catch (Exception ex)
             {
@@ -221,17 +190,27 @@ namespace OctoPrint_monitor
         private void iconToggle_Checked(object sender, RoutedEventArgs e)
         {
             Properties.Settings.Default.taskIconToggle = true;
-            //MainWindow.myTaskbarIcon.Visibility = System.Windows.Visibility.Visible;
-            //Application.Current.FindResource("isVisible") = "Visible";
-            App.Current.Resources["isVisible"] = System.Windows.Visibility.Visible;
+
+            if (App.isPrinting)
+            {
+                Application.Current.Resources["isVisibleRedIcon"] = Visibility.Visible;
+            }
+            else
+            {
+                Application.Current.Resources["isVisibleGrayIcon"] = Visibility.Visible;
+            }
+
+            Application.Current.Resources["myTestString"] = "Icon toggled on";
         }
 
         private void iconToggle_Unchecked(object sender, RoutedEventArgs e)
         {
             Properties.Settings.Default.taskIconToggle = false;
-            //MainWindow.myTaskbarIcon.Visibility = System.Windows.Visibility.Hidden;
-            //MainWindow.my
-            App.Current.Resources["isVisible"] = System.Windows.Visibility.Hidden;
+
+            Application.Current.Resources["isVisibleGrayIcon"] = Visibility.Hidden;
+            Application.Current.Resources["isVisibleRedIcon"] = Visibility.Hidden;
+
+            Application.Current.Resources["myTestString"] = "Icon toggled off";
         }
 
         private void Navigate_url(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
@@ -243,25 +222,5 @@ namespace OctoPrint_monitor
         {
             this.Resources["IPbox_key"] = IPBox.Text;
         }
-
-        //private void Button_Click(object sender, RoutedEventArgs e)
-        //{
-        //    Color colorHexAsColor = (Color)ColorConverter.ConvertFromString(colorHexBox.Text);
-        //    SolidColorBrush myBrush = new SolidColorBrush(colorHexAsColor);
-        //    Properties.Settings.Default.backgroundColor = myBrush;
-        //    colorLabel.Content = Properties.Settings.Default.backgroundColor.ToString();
-        //}
-
-        //private void greenBtn_Click(object sender, RoutedEventArgs e)
-        //{
-        //    this.DataContext = App.settings;
-        //    App.settings.visibleProgressbar = TaskbarItemProgressState.Normal;
-        //}
-
-        //private void yellowBtn_Click(object sender, RoutedEventArgs e)
-        //{
-        //    this.DataContext = App.settings;
-        //    App.settings.visibleProgressbar = TaskbarItemProgressState.Paused;
-        //}
     }
 }
