@@ -10,6 +10,7 @@
         <!--<TaskbarItem
         x:Key="TaskProgressVis">None</TaskbarItemProgressState>-->
         <sys:String x:Key="iconText">Taskbar notification text</sys:String>
-        <Visibility x:Key="isVisible">Hidden</Visibility>
+        <Visibility x:Key="isVisibleGrayIcon">Hidden</Visibility>
+        <Visibility x:Key="isVisibleRedIcon">Hidden</Visibility>
     </Application.Resources>
 </Application>
