@@ -27,10 +27,15 @@
                 <MenuItem Header="Exit" Click="MenuItem_Exit"/>
              </ContextMenu>
         </Grid.ContextMenu>
-        <tb:TaskbarIcon x:Name="myTaskbarIcon"
+        <tb:TaskbarIcon x:Name="myGrayIcon"
 			x:FieldModifier="public"
 			IconSource="Icons/Inactive.ico"
-			Visibility="{DynamicResource isVisible}"
+			Visibility="{DynamicResource isVisibleGrayIcon}"
+            ToolTipText="{DynamicResource notifyPopupText}"/>
+        <tb:TaskbarIcon x:Name="myRedIcon"
+			x:FieldModifier="public"
+			IconSource="Icons/Error.ico"
+			Visibility="{DynamicResource isVisibleRedIcon}"
             ToolTipText="{DynamicResource notifyPopupText}"/>
         <TextBlock x:Name="TextBlock1"
 			HorizontalAlignment="Center"
