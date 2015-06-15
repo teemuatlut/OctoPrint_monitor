@@ -93,18 +93,18 @@
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" Margin="5,0,0,0">
-                <CheckBox x:Name="barCheck"
-                          TabIndex="30"
-                          Margin="0,5,0,0"
-                          Content="Progress bar"
-                          Checked="CheckBox_Checked"
-                          Unchecked="CheckBox_Unchecked"/>
                 <CheckBox x:Name="taskbarToggle"
                           TabIndex="40"
                           Margin="0,5,0,0"
                           Content="Taskbar"
                           Checked="CheckBox_Checked_1"
                           Unchecked="taskbarToggle_Unchecked"/>
+                <CheckBox x:Name="barCheck"
+                          TabIndex="30"
+                          Margin="0,5,0,0"
+                          Content="Progress bar"
+                          Checked="CheckBox_Checked"
+                          Unchecked="CheckBox_Unchecked"/>
                 <CheckBox x:Name="iconToggle"
                           Content="Notification icon"
                           TabIndex="45"
@@ -131,9 +131,9 @@
                        HorizontalContentAlignment="Right"/>
                 <Label Content="Background color"
                        HorizontalContentAlignment="Right"/>
-                <Label Content="Border bottom color"
-                       HorizontalContentAlignment="Right"/>
                 <Label Content="Border top color"
+                       HorizontalContentAlignment="Right"/>
+                <Label Content="Border bottom color"
                        HorizontalContentAlignment="Right"/>
             </StackPanel>
             <StackPanel Grid.Column="2" Margin="0,0,5,0">
@@ -141,24 +141,8 @@
                          TabIndex="70"
                          Margin="0,2"
                          Text="TextBox"/>
-                <TextBox x:Name="colorHexBox"
-                         TabIndex="80"
-                         Margin="0,2"
-                         Text="TextBox"
-                         LostFocus="background_LostFocus">
-                    <TextBox.ToolTip>
-                        <TextBlock>
-                            Hex or string: <LineBreak /> 
-                            #0f0 <LineBreak /> 
-                            #00FF00 <LineBreak /> 
-                            #0000FF00 <LineBreak /> 
-                            White <LineBreak /> 
-                            Purple
-                        </TextBlock>
-                    </TextBox.ToolTip>
-                </TextBox>
                 <TextBox x:Name="textColorBox"
-                         TabIndex="90"
+                         TabIndex="80"
                          Margin="0,2"
                          Text="TextBox"
                          LostFocus="textColorBox_LostFocus">
@@ -173,16 +157,32 @@
                         </TextBlock>
                     </TextBox.ToolTip>
                 </TextBox>
-                <TextBox x:Name="borderColorBot"
+                <TextBox x:Name="colorHexBox"
+                         TabIndex="90"
                          Margin="0,2"
                          Text="TextBox"
-                         LostFocus="borderColorBot_LostFocus"
-                         TabIndex="96"/>
+                         LostFocus="background_LostFocus">
+                    <TextBox.ToolTip>
+                        <TextBlock>
+                            Hex or string: <LineBreak /> 
+                            #0f0 <LineBreak /> 
+                            #00FF00 <LineBreak /> 
+                            #0000FF00 <LineBreak /> 
+                            White <LineBreak /> 
+                            Purple
+                        </TextBlock>
+                    </TextBox.ToolTip>
+                </TextBox>
                 <TextBox x:Name="borderColorTop"
                          Margin="0,2"
                          Text="TextBox"
                          LostFocus="borderColorTop_LostFocus"
                          TabIndex="94"/>
+                <TextBox x:Name="borderColorBot"
+                         Margin="0,2"
+                         Text="TextBox"
+                         LostFocus="borderColorBot_LostFocus"
+                         TabIndex="96"/>
             </StackPanel>
         </Grid>
     </Grid>
