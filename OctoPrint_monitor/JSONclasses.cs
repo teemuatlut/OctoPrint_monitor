@@ -38,8 +38,8 @@ namespace OctoPrint_monitor
     }
     public class cState
     {
-        public int state { get; set; }
-        public string stateString { get; set; }
+        //public int state { get; set; }
+        public string text { get; set; } //stateString { get; set; }
         public cFlags flags { get; set; }
     }
     public class cFlags
@@ -50,13 +50,13 @@ namespace OctoPrint_monitor
         public bool sdReady { get; set; }
         public bool error { get; set; }
         public bool ready { get; set; }
-        public bool closedError { get; set; }
+        public bool closedOrError { get; set; }
     }
-    public class cTemperature
-    {
-        public cTemps temps { get; set; }
-    }
-    public class cTemps
+    //public class cTemperature
+    //{
+    //    public cTemps temps { get; set; }
+    //}
+    public class cTemperature //cTemps
     {
         public cBed bed { get; set; }
         public cTool0 tool0 { get; set; }
@@ -75,7 +75,7 @@ namespace OctoPrint_monitor
     }
     public class cSd
     {
-        public bool read { get; set; }
+        public bool ready { get; set; }
     }
     public class jobMain
     {
@@ -87,6 +87,8 @@ namespace OctoPrint_monitor
     {
         public cFile file { get; set; }
         public double? estimatedPrintTime { get; set; }
+        public double? averagePrintTime { get; set; }
+        public double? lastPrintTime { get; set; }
         public cFilament filament { get; set; }
     }
     public class cProgress

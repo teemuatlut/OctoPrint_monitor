@@ -145,11 +145,11 @@ namespace OctoPrint_monitor
             StringBuilder barInfo = new StringBuilder();
             //if (1 == 1) myBuilder.AppendFormat("Printer state: {0}", printer_data.state.stateString);
             myBuilder.Append("Printer state: ");
-            myBuilder.Append(printer_data.state.stateString);
-            if (1 == 1) myBuilder.AppendLine().AppendFormat("Tool temp: {0:0.0}", printer_data.temperature.temps.tool0.actual);
-            if (Properties.Settings.Default.showTarget.Equals(true)) myBuilder.AppendFormat("/{0:0}", printer_data.temperature.temps.tool0.target);
-            if (1 == 1) myBuilder.AppendLine().AppendFormat("Bed temp: {0:0.0}", printer_data.temperature.temps.bed.actual);
-            if (Properties.Settings.Default.showTarget.Equals(true)) myBuilder.AppendFormat("/{0:0}", printer_data.temperature.temps.bed.target);
+            myBuilder.Append(printer_data.state.text);
+            if (1 == 1) myBuilder.AppendLine().AppendFormat("Tool temp: {0:0.0}", printer_data.temperature.tool0.actual);
+            if (Properties.Settings.Default.showTarget.Equals(true)) myBuilder.AppendFormat("/{0:0}", printer_data.temperature.tool0.target);
+            if (1 == 1) myBuilder.AppendLine().AppendFormat("Bed temp: {0:0.0}", printer_data.temperature.bed.actual);
+            if (Properties.Settings.Default.showTarget.Equals(true)) myBuilder.AppendFormat("/{0:0}", printer_data.temperature.bed.target);
             if (job_data != null)
             {
                 myBuilder.AppendLine().AppendFormat("Job progress: {0:0}%", job_data.progress.completion);
@@ -157,13 +157,21 @@ namespace OctoPrint_monitor
 
                 previousPrintTime = job_data.progress.printTime ?? default(int);
                 var ETAvalue = job_data.progress.printTimeLeft ?? default(int);
-                var ETA = new DateTime(0);
-                ETA = ETA.AddSeconds(ETAvalue);
-                myBuilder.AppendLine().AppendFormat("ETA: {0}h {1}m", ETA.Hour.ToString(), ETA.Minute.ToString());
+                if (ETAvalue < 0) {
+                    myBuilder.AppendLine().AppendFormat("ETA: -");
+                    barInfo.AppendFormat("-% | -h -m");
+                    this.Resources["notifyPopupText"] = string.Format("-% | -h -m");
+                }
+                else
+                {
+                    var ETA = new DateTime(0);
+                    ETA = ETA.AddSeconds(ETAvalue);
+                    myBuilder.AppendLine().AppendFormat("ETA: {0}h {1}m", ETA.Hour.ToString(), ETA.Minute.ToString());
 
-                barInfo.AppendFormat("{0:0}% | {1}h {2}m", job_data.progress.completion, ETA.Hour.ToString(), ETA.Minute.ToString());
+                    barInfo.AppendFormat("{0:0}% | {1}h {2}m", job_data.progress.completion, ETA.Hour.ToString(), ETA.Minute.ToString());
 
-                this.Resources["notifyPopupText"] = string.Format("{0:0}% | {1}h {2}m", job_data.progress.completion, ETA.Hour.ToString(), ETA.Minute.ToString());
+                    this.Resources["notifyPopupText"] = string.Format("{0:0}% | {1}h {2}m", job_data.progress.completion, ETA.Hour.ToString(), ETA.Minute.ToString());
+                }
 
                 if (Properties.Settings.Default.taskIconToggle.Equals(true))
                 {
@@ -179,7 +187,7 @@ namespace OctoPrint_monitor
             {
                 TaskbarItemInfo.ProgressValue = 0;
                 //myTaskbarIcon.Icon = new System.Drawing.Icon("Icons/Inactive.ico");
-                barInfo.AppendFormat("[{0}]", printer_data.state.stateString);
+                barInfo.AppendFormat("[{0}]", printer_data.state.text);
                 if (Properties.Settings.Default.taskIconToggle.Equals(true))
                 {
                     Application.Current.Resources["isVisibleRedIcon"] = Visibility.Hidden;
